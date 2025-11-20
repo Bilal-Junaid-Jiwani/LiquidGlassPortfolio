@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<!-- 
+    V72: ULTIMATE FIX
+    - Fixed Critical JS Error: Removed the standalone AI_ASSISTANT_PROMPT that caused 'p is not defined'.
+    - This restores all functionality: Project Modals, AI Chat, Floating Button, etc.
+    - Improved Contact Form responsiveness.
+    - Increased Z-Index for Floating AI Button.
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilal Junaid Jiwani - Professional Developer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- three.js (3D Hero) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            /* Dark Mode (Default) */
+            --bg-primary: #0A0F1F;     /* Deep Blue */
+            --bg-secondary: #101935;  /* Lighter Blue */
+            --bg-accent: #1B2A49;     /* Accent Blue */
+            --text-primary: #F5F5F5;    /* Off-white */
+            --text-secondary: #BDBDBD;  /* Gray */
+            --accent-primary: #33D1FF;  /* Bright Cyan */
+            --accent-secondary: #E11D48; /* Bright Pink */
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'Inter', sans-serif;
+        }
+
+        .light-mode {
+            --bg-primary: #FFFFFF;     /* White */
+            --bg-secondary: #F0F2F5;  /* Light Gray */
+            --bg-accent: #E4E6EB;     /* Lighter Gray */
+            --text-primary: #1C1E21;    /* Almost Black */
+            --text-secondary: #5A5A5A;  /* Dark Gray */
+            --accent-primary: #007BFF;  /* Bright Blue */
+            --accent-secondary: #D9184B; /* Dark Pink */
+        }
+
+        .cyber-mode {
+            --bg-primary: #0d0a1f;     /* Cyber Dark Purple */
+            --bg-secondary: #1a162d;  /* Cyber Purple */
+            --bg-accent: #2a2347;     /* Cyber Light Purple */
+            --text-primary: #f0f2f5;    /* Cyber Off-white */
+            --text-secondary: #9a9ec1;  /* Cyber Gray-ish */
+            --accent-primary: #e11d48;  /* Cyber Pink */
+            --accent-secondary: #06b6d4; /* Cyber Cyan */
+        }
+
+        /* --- Base Setup --- */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        p, a, span, div, li, button, input, textarea {
+            color: var(--text-secondary);
+        }
+        h1 span, h2 span, h3 span {
+            color: var(--text-primary);
+        }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .bg-primary { background-color: var(--bg-primary); }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        .bg-accent { background-color: var(--bg-accent); }
+        .border-accent { border-color: var(--bg-accent); }
+        .text-accent-primary { color: var(--accent-primary); }
+        .text-accent-secondary { color: var(--accent-secondary); }
+
+        /* --- Text Gradient --- */
+        .text-gradient {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        /* --- Buttons --- */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .btn-secondary {
+            background-color: var(--bg-accent);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-accent);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        /* --- Theme Switcher --- */
+        .theme-btn.bg-accent-primary {
+            background-color: var(--accent-primary) !important;
+            color: #ffffff !important;
+        }
+        .theme-btn {
+            color: var(--text-secondary);
+        }
+
+        /* --- Stats Bar Animation --- */
+        @keyframes count-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #stats-bar h3 {
+            animation: count-up 0.5s ease-out;
+        }
+
+        /* --- Skill Tabs --- */
+        .skill-tab-btn.text-primary {
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+        }
+        .skill-tab-btn {
+            color: var(--text-secondary);
+        }
+        
+        /* --- Skill Card (Circle) --- */
+        .skill-circle-card {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            border: 1px solid var(--bg-accent);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .skill-circle-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .skill-circle-card h4 {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+        
+        /* Radial Progress */
+        @property --p{
+            syntax: '<integer>';
+            initial-value: 0;
+            inherits: false;
+        }
+        .skill-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto;
+            background: 
+                radial-gradient(farthest-side, var(--bg-primary) 79%, transparent 80% 100%),
+                conic-gradient(from 0deg, var(--accent-primary) calc(var(--p) * 1%), var(--bg-accent) 0);
+            animation: progress-load 1s ease-out;
+            transition: background 0.2s;
+        }
+        .skill-circle-card:hover .skill-circle {
+             background: 
+                radial-gradient(farthest-side, var(--bg-accent) 79%, transparent 80% 100%),
+                conic-gradient(from 0deg, var(--accent-primary) calc(var(--p) * 1%), var(--bg-accent) 0);
+        }
+        .skill-circle span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        @keyframes progress-load {
+            from { --p: 0; }
+        }
+
+        /* --- Project Card Badge --- */
+        .badge {
+            background-color: var(--bg-accent);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+        }
+
+        /* --- AI Center --- */
+        .ai-tab-btn.text-primary {
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+        }
+        .ai-tab-btn {
+            color: var(--text-secondary);
+        }
+        .ai-tab-content {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Form Inputs --- */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--bg-accent);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-secondary);
+        }
+
+        /* --- Loader Animation --- */
+        .loader {
+            display: inline-block;
+            border-color: var(--accent-primary);
+            border-bottom-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* --- 3D Hero Canvas --- */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        
+        /* --- Modals --- */
+        .modal-content {
+            background-color: var(--bg-secondary);
+            animation: modal-scale-in 0.3s ease-out;
+        }
+        @keyframes modal-scale-in {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Floating AI Button --- */
+        #ai-floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999; /* Ultra High Z-Index */
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #ai-floating-btn:hover {
+            transform: scale(1.1);
+        }
+        
+    </style>
+</head>
+<body class="bg-primary text-primary overflow-x-hidden">
+
+    <!-- === Header / Navbar === -->
+    <header class="bg-primary/80 backdrop-blur-md sticky top-0 z-50 border-b border-accent">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-gradient">BJ.</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="text-secondary hover:text-primary transition-colors duration-200">About</a>
+                <a href="#skills" class="text-secondary hover:text-primary transition-colors duration-200">Skills</a>
+                <a href="#projects" class="text-secondary hover:text-primary transition-colors duration-200">Projects</a>
+                <a href="#ai-center" class="text-secondary hover:text-primary transition-colors duration-200">AI Center</a>
+                <a href="#contact" class="text-secondary hover:text-primary transition-colors duration-200">Contact</a>
+                
+                <!-- Theme Switcher -->
+                <div class="bg-secondary rounded-full p-1 flex space-x-1">
+                    <button id="theme-dark" class="theme-btn p-1.5 rounded-full" data-theme="dark" title="Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="theme-light" class="theme-btn p-1.5 rounded-full" data-theme="light" title="Light Mode">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button id="theme-cyber" class="theme-btn p-1.5 rounded-full" data-theme="cyber" title="Cyber Mode">
+                        <i class="fas fa-atom"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-primary">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary">
+            <a href="#about" class="block px-6 py-3 text-primary hover:bg-accent">About</a>
+            <a href="#skills" class="block px-6 py-3 text-primary hover:bg-accent">Skills</a>
+            <a href="#projects" class="block px-6 py-3 text-primary hover:bg-accent">Projects</a>
+            <a href="#ai-center" class="block px-6 py-3 text-primary hover:bg-accent">AI Center</a>
+            <a href="#contact" class="block px-6 py-3 text-primary hover:bg-accent">Contact</a>
+            <!-- Mobile Theme Switcher -->
+            <div class="flex justify-center space-x-4 p-4 border-t border-accent">
+                <button class="mobile-theme-btn p-2 rounded-full bg-accent" data-theme="dark"><i class="fas fa-moon"></i></button>
+                <button class="mobile-theme-btn p-2 rounded-full bg-accent" data-theme="light"><i class="fas fa-sun"></i></button>
+                <button class="mobile-theme-btn p-2 rounded-full bg-accent" data-theme="cyber"><i class="fas fa-atom"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- === Hero Section === -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden px-6">
+            <!-- 3D Background -->
+            <canvas id="hero-canvas"></canvas>
+            
+            <div class="relative z-10 flex flex-col items-center">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-4">
+                    <span class="text-primary">Muhammad Bilal</span>
+                </h1>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                    <span class="text-gradient" id="typing-hero">Full-Stack Developer</span>
+                </h2>
+                <p class="text-lg md:text-xl text-secondary max-w-2xl mb-6" id="hero-intro-text">
+                    A passionate backend developer skilled in Django, Node.js, and n8n, with a strong interest in creating end-to-end web solutions.
+                </p>
+                <!-- AI Rephrase Button -->
+                <button id="rephrase-btn" class="bg-accent text-accent-primary hover:bg-opacity-80 px-4 py-2 rounded-full font-semibold mb-8 transition-all duration-200 flex items-center gap-2 mx-auto">
+                    <i class="fas fa-magic"></i> ✨ Rephrase
+                </button>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#projects" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold transition-transform duration-200 hover:scale-105">
+                        View My Work
+                    </a>
+                    <!-- Download CV Button -->
+                    <a href="MUHAMMAD BILAL CV.pdf" download="MUHAMMAD BILAL CV.pdf" class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold transition-transform duration-200 hover:scale-105 flex items-center gap-2">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section id="stats-bar" class="py-16 bg-secondary">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <h3 id="stat-projects" class="text-4xl md:text-5xl font-bold text-accent font-heading">0+</h3>
+                        <p class="text-lg text-secondary mt-1">Projects Completed</p>
+                    </div>
+                    <div>
+                        <h3 id="stat-commits" class="text-4xl md:text-5xl font-bold text-accent font-heading">0+</h3>
+                        <p class="text-lg text-secondary mt-1">GitHub Commits</p>
+                    </div>
+                    <div>
+                        <h3 id="stat-skills" class="text-4xl md:text-5xl font-bold text-accent font-heading">0+</h3>
+                        <p class="text-lg text-secondary mt-1">Core Technologies</p>
+                    </div>
+                    <div>
+                        <h3 id="stat-years" class="text-4xl md:text-5xl font-bold text-accent font-heading">0+</h3>
+                        <p class="text-lg text-secondary mt-1">Years of Experience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === About Me Section === -->
+        <section id="about" class="py-24 bg-primary">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    About <span class="text-gradient">Me</span>
+                </h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <!-- Your new coding picture -->
+                        <img src="WhatsApp Image 2025-10-19 at 14.38.25_108ca22e.jpg" 
+                             alt="Bilal Junaid Jiwani working on code"
+                             onerror="this.src='https://placehold.co/600x600/1f2937/f9fafb?text=Bilal+Jiwani'"
+                             class="rounded-xl shadow-2xl w-full object-cover aspect-square">
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-3xl font-bold mb-4">My Journey</h3>
+                        <p class="text-lg text-secondary mb-8">
+                            I'm a passionate developer skilled in Django, Node.js, and n8n, with a strong interest in creating end-to-end web solutions. I also enjoy working on modern frontend designs to deliver smooth and engaging user experiences.
+                        </p>
+                        <!-- Journey / Education Timeline (Updated from CV) -->
+                        <div class="space-y-6 border-l-2 border-accent-primary pl-6">
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-accent-primary rounded-full top-1.5"></div>
+                                <h4 class="text-xl font-semibold">Saylani Institute (In Progress)</h4>
+                                <p class="text-secondary">Modern Web Application Development (Learning React)</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-accent-primary rounded-full top-1.5"></div>
+                                <h4 class="text-xl font-semibold">PIAIC (In Progress)</h4>
+                                <p class="text-secondary">Certified Agentic & Robotic AI Engineer (CAE)</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-accent-primary rounded-full top-1.5"></div>
+                                <h4 class="text-xl font-semibold">Zaitoon Ashraf IT Park (Hackathon Winner)</h4>
+                                <p class="text-secondary">Developed "Pitch Craft AI" in a high-pressure environment.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-accent-primary rounded-full top-1.5"></div>
+                                <h4 class="text-xl font-semibold">WordPress Developer</h4>
+                                <p class="text-secondary">2 Years Experience (Self-employed, 2023-2024)</p>
+                            </div>
+                             <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-accent-primary rounded-full top-1.5"></div>
+                                <h4 class="text-xl font-semibold">Google AdSense & ADX Publisher</h4>
+                                <p class="text-secondary">Managed and monetized web properties (2023-2024)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- === Skills Section === -->
+        <section id="skills" class="py-24 bg-secondary">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    Technical <span class="text-gradient">Skills</span>
+                </h2>
+                <!-- Tabs (Updated from CV) -->
+                <div class="w-full max-w-3xl mx-auto mb-8">
+                    <div class="flex justify-center space-x-4 border-b-2 border-accent" id="skill-tabs">
+                        <button class="skill-tab-btn px-6 py-3 font-semibold text-lg border-b-2 border-accent-primary text-primary" data-tab="frontend">Frontend</button>
+                        <button class="skill-tab-btn px-6 py-3 font-semibold text-lg border-b-2 border-transparent text-secondary" data-tab="backend">Backend</button>
+                        <button class="skill-tab-btn px-6 py-3 font-semibold text-lg border-b-2 border-transparent text-secondary" data-tab="tools">Digital & Tools</button>
+                    </div>
+                </div>
+
+                <!-- Tab Content (Updated from CV) -->
+                <div id="skill-content" class="w-full max-w-4xl mx-auto">
+                    <!-- Frontend -->
+                    <div class="skill-tab-content grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-tab="frontend">
+                        <div class="skill-circle-card" data-skill="React" data-percentage="60%">
+                            <div class="skill-circle" style="--p:60;"><span>60%</span></div>
+                            <h4>React</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="JavaScript" data-percentage="90%">
+                            <div class="skill-circle" style="--p:90;"><span>90%</span></div>
+                            <h4>JavaScript</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Tailwind CSS" data-percentage="95%">
+                            <div class="skill-circle" style="--p:95;"><span>95%</span></div>
+                            <h4>Tailwind CSS</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Bootstrap" data-percentage="80%">
+                            <div class="skill-circle" style="--p:80;"><span>80%</span></div>
+                            <h4>Bootstrap</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="HTML" data-percentage="95%">
+                            <div class="skill-circle" style="--p:95;"><span>95%</span></div>
+                            <h4>HTML</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="CSS" data-percentage="95%">
+                            <div class="skill-circle" style="--p:95;"><span>95%</span></div>
+                            <h4>CSS</h4>
+                        </div>
+                    </div>
+                    <!-- Backend -->
+                    <div class="skill-tab-content hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-tab="backend">
+                        <div class="skill-circle-card" data-skill="Django" data-percentage="40%">
+                            <div class="skill-circle" style="--p:40;"><span>40%</span></div>
+                            <h4>Django</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Node.js" data-percentage="70%">
+                            <div class="skill-circle" style="--p:70;"><span>70%</span></div>
+                            <h4>Node.js</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Python" data-percentage="90%">
+                            <div class="skill-circle" style="--p:90;"><span>90%</span></div>
+                            <h4>Python</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="MongoDB" data-percentage="50%">
+                            <div class="skill-circle" style="--p:50;"><span>50%</span></div>
+                            <h4>MongoDB</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="PostgreSQL" data-percentage="50%">
+                            <div class="skill-circle" style="--p:50;"><span>50%</span></div>
+                            <h4>PostgreSQL</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Firebase" data-percentage="70%">
+                            <div class="skill-circle" style="--p:70;"><span>70%</span></div>
+                            <h4>Firebase</h4>
+                        </div>
+                    </div>
+                    <!-- Tools -->
+                    <div class="skill-tab-content hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-tab="tools">
+                        <div class="skill-circle-card" data-skill="n8n" data-percentage="90%">
+                            <div class="skill-circle" style="--p:90;"><span>90%</span></div>
+                            <h4>n8n</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Git & GitHub" data-percentage="85%">
+                            <div class="skill-circle" style="--p:85;"><span>85%</span></div>
+                            <h4>Git & GitHub</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="WordPress" data-percentage="95%">
+                            <div class="skill-circle" style="--p:95;"><span>95%</span></div>
+                            <h4>WordPress</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Google AdSense" data-percentage="80%">
+                            <div class="skill-circle" style="--p:80;"><span>80%</span></div>
+                            <h4>Google AdSense</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="SEO" data-percentage="70%">
+                            <div class="skill-circle" style="--p:70;"><span>70%</span></div>
+                            <h4>SEO</h4>
+                        </div>
+                        <div class="skill-circle-card" data-skill="Amazon VA" data-percentage="40%">
+                            <div class="skill-circle" style="--p:40;"><span>40%</span></div>
+                            <h4>Amazon VA</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-center text-secondary mt-8 text-sm">
+                    <i class="fas fa-info-circle"></i> Click any skill to ask the AI about it!
+                </p>
+            </div>
+        </section>
+
+        <!-- === Projects Section === -->
+        <section id="projects" class="py-24 bg-primary">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    My <span class="text-gradient">Projects</span>
+                </h2>
+                <!-- Projects Grid (Updated from CV) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1: PitchCraft AI -->
+                    <div class="project-card bg-secondary rounded-lg shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <img src="https://placehold.co/600x400/e11d48/ffffff?text=PitchCraft+AI" class="w-full h-48 object-cover" alt="PitchCraft AI">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">PitchCraft AI</h3>
+                            <p class="text-secondary mb-4">AI-powered pitch generation and website code for startup ideas. (Hackathon Winner)</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge">Full-Stack</span><span class="badge">AI</span><span class="badge">Hackathon</span>
+                            </div>
+                            <button class="project-modal-btn w-full btn-secondary py-2 px-4 rounded-full font-semibold" 
+                                    data-title="PitchCraft AI" 
+                                    data-desc="A full-stack web application created during the Zaitoon Ashraf IT Park Hackathon. It transforms a startup idea into a complete business package with AI-powered pitch generation and professional website code."
+                                    data-tech="Full-Stack, AI, Rapid Prototyping"
+                                    data-link-live="https://pitchcraft-abzf.vercel.app/"
+                                    data-link-repo="https://github.com/Bilal-Junaid-Jiwani/PitchCraft-AI">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Financial Banking System -->
+                    <div class="project-card bg-secondary rounded-lg shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <img src="https://placehold.co/600x400/06b6d4/ffffff?text=Banking+System" class="w-full h-48 object-cover" alt="Financial Banking System">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Financial Banking System</h3>
+                            <p class="text-secondary mb-4">A complete financial management system developed using the Django framework.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge">Python</span><span class="badge">Django</span>
+                            </div>
+                            <button class="project-modal-btn w-full btn-secondary py-2 px-4 rounded-full font-semibold"
+                                    data-title="Financial Banking System" 
+                                    data-desc="Developed a Financial management system based on the Django framework."
+                                    data-tech="Python, Django"
+                                    data-link-live="https://financial-banking-system.onrender.com/"
+                                    data-link-repo="https://github.com/Bilal-Junaid-Jiwani/Financial-Banking-System">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Hospital Management System -->
+                    <div class="project-card bg-secondary rounded-lg shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <img src="https://placehold.co/600x400/a855f7/ffffff?text=Hospital+System" class="w-full h-48 object-cover" alt="Hospital Management System">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Hospital Management System</h3>
+                            <p class="text-secondary mb-4">A hospital management system developed using the Django framework.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge">Python</span><span class="badge">Django</span>
+                            </div>
+                            <button class="project-modal-btn w-full btn-secondary py-2 px-4 rounded-full font-semibold"
+                                    data-title="Hospital Management System" 
+                                    data-desc="Developed a hospital management system based on the Django framework."
+                                    data-tech="Python, Django"
+                                    data-link-live="#"
+                                    data-link-repo="https://github.com/Bilal-Junaid-Jiwani/Hospital-Managment-System">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Reddit Leads Automation -->
+                    <div class="project-card bg-secondary rounded-lg shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <img src="https://placehold.co/600x400/ff4500/ffffff?text=Reddit+Leads" class="w-full h-48 object-cover" alt="Reddit Leads Automation">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Reddit Leads Automation</h3>
+                            <p class="text-secondary mb-4">Automated lead generation system using n8n, Python, and React dashboard.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge">n8n</span><span class="badge">Python</span><span class="badge">React</span>
+                            </div>
+                            <button class="project-modal-btn w-full btn-secondary py-2 px-4 rounded-full font-semibold"
+                                    data-title="Reddit Leads Automation" 
+                                    data-desc="A powerful automation tool that scrapes Reddit for potential leads using Python scripts within n8n workflows. The data is processed and served to a React frontend via an Excel file integration, allowing for efficient lead management."
+                                    data-tech="n8n, Python, React, Excel Integration"
+                                    data-link-live="#"
+                                    data-link-repo="#">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === AI Command Center === -->
+        <section id="ai-center" class="py-24 bg-secondary">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    AI Command <span class="text-gradient">Center</span>
+                </h2>
+                <p class="text-center text-lg text-secondary max-w-3xl mx-auto mb-12">
+                    This is my custom AI-powered command center. You can live-test my skills and interact with my custom tools here.
+                </p>
+
+                <div class="max-w-4xl mx-auto bg-primary rounded-xl shadow-2xl overflow-hidden">
+                    <!-- AI Tabs -->
+                    <div class="flex flex-wrap border-b border-accent" id="ai-tabs">
+                        <button class="ai-tab-btn flex-grow px-4 py-3 font-semibold text-center text-primary border-b-2 border-accent-primary" data-tab="ai-refactor"><i class="fas fa-code"></i> Code Refactor</button>
+                        <button class="ai-tab-btn flex-grow px-4 py-3 font-semibold text-center text-secondary border-b-2 border-transparent" data-tab="ai-blog"><i class="fas fa-blog"></i> Blog Generator</button>
+                        <button class="ai-tab-btn flex-grow px-4 py-3 font-semibold text-center text-secondary border-b-2 border-transparent" data-tab="ai-tech"><i class="fas fa-microchip"></i> Tech Explainer</button>
+                        <button class="ai-tab-btn flex-grow px-4 py-3 font-semibold text-center text-secondary border-b-2 border-transparent" data-tab="ai-seo"><i class="fas fa-chart-line"></i> SEO Optimizer</button>
+                        <button class="ai-tab-btn flex-grow px-4 py-3 font-semibold text-center text-secondary border-b-2 border-transparent" data-tab="ai-project"><i class="fas fa-tasks"></i> Project Explainer</button>
+                    </div>
+
+                    <!-- AI Tab Content -->
+                    <div class="p-6 md:p-8">
+                         <!-- Code Refactor -->
+                        <div class="ai-tab-content" data-tab="ai-refactor">
+                            <h3 class="text-2xl font-bold mb-4">AI Code Refactor</h3>
+                            <p class="text-secondary mb-6">Paste any code snippet here and the AI will refactor it to be cleaner and more efficient.</p>
+                            <div class="space-y-4">
+                                <textarea id="ai-refactor-input" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary h-32" placeholder="function hello() { console.log('hi') }"></textarea>
+                                <button id="ai-refactor-btn" class="btn-primary px-6 py-2 rounded-full font-semibold w-full">Refactor Code</button>
+                                <div id="ai-refactor-response" class="p-4 bg-secondary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto">...</div>
+                            </div>
+                        </div>
+                        <!-- Blog Generator -->
+                        <div class="ai-tab-content hidden" data-tab="ai-blog">
+                            <h3 class="text-2xl font-bold mb-4">AI Blog Generator</h3>
+                            <p class="text-secondary mb-6">Let the AI generate a short tech blog post from my (Bilal's) perspective on any topic.</p>
+                            <div class="space-y-4">
+                                <input type="text" id="ai-blog-input" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary" placeholder="Topic: 'Future of React'">
+                                <button id="ai-blog-btn" class="btn-primary px-6 py-2 rounded-full font-semibold w-full">Generate Blog</button>
+                                <div id="ai-blog-response" class="p-4 bg-secondary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto">...</div>
+                            </div>
+                        </div>
+                        <!-- Tech Explainer -->
+                        <div class="ai-tab-content hidden" data-tab="ai-tech">
+                            <h3 class="text-2xl font-bold mb-4">AI Tech Explainer</h3>
+                            <p class="text-secondary mb-6">Ask the AI to explain any technology in simple terms.</p>
+                            <div class="space-y-4">
+                                <input type="text" id="ai-tech-input" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary" placeholder="Technology: 'What is n8n?'">
+                                <button id="ai-tech-btn" class="btn-primary px-6 py-2 rounded-full font-semibold w-full">Explain Tech</button>
+                                <div id="ai-tech-response" class="p-4 bg-secondary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto">...</div>
+                            </div>
+                        </div>
+                        <!-- SEO Optimizer -->
+                        <div class="ai-tab-content hidden" data-tab="ai-seo">
+                            <h3 class="text-2xl font-bold mb-4">AI SEO Optimizer</h3>
+                            <p class="text-secondary mb-6">Enter a blog title and keywords to generate SEO-friendly metadata (showcasing my Digital Skills).</p>
+                            <div class="space-y-4">
+                                <input type="text" id="ai-seo-title" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary" placeholder="Blog Title: 'Why Python is Great for Backend'">
+                                <textarea id="ai-seo-keywords" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary h-24" placeholder="Keywords/Content: 'python, django, backend, performance, fast'"></textarea>
+                                <button id="ai-seo-btn" class="btn-primary px-6 py-2 rounded-full font-semibold w-full">Optimize</button>
+                                <div id="ai-seo-response" class="p-4 bg-secondary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto">...</div>
+                            </div>
+                        </div>
+                        <!-- Project Explainer -->
+                        <div class="ai-tab-content hidden" data-tab="ai-project">
+                            <h3 class="text-2xl font-bold mb-4">AI Project Explainer</h3>
+                            <p class="text-secondary mb-6">Get a technical explanation for any of my projects.</p>
+                            <div class="space-y-4">
+                                <input type="text" id="ai-project-input" class="w-full p-3 bg-secondary rounded-lg border border-accent text-primary" placeholder="Project: 'E-commerce site using Django'">
+                                <button id="ai-project-btn" class="btn-primary px-6 py-2 rounded-full font-semibold w-full">Explain Project</button>
+                                <div id="ai-project-response" class="p-4 bg-secondary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto">...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === Contact Section === -->
+        <section id="contact" class="py-24 bg-primary">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    Get In <span class="text-gradient">Touch</span>
+                </h2>
+                <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="bg-secondary p-8 rounded-xl shadow-2xl space-y-6">
+                    
+                    <input type="hidden" name="access_key" value="9bb74cad-33c9-4f53-b493-4c696de31dc9">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="contact-name" class="block mb-2 font-semibold">Your Name</label>
+                            <input type="text" id="contact-name" name="name" class="form-input" placeholder="Bilal Junaid" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block mb-2 font-semibold">Your Email</label>
+                            <input type="email" id="contact-email" name="email" class="form-input" placeholder="bilal@example.com" required>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Mail Draft -->
+                    <div>
+                        <label for="ai-draft-input" class="block mb-2 font-semibold">AI Message Draft (Optional)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="ai-draft-input" class="form-input flex-grow" placeholder="Keywords: 'Job Offer for React'">
+                            <button type="button" id="ai-draft-btn" class="btn-secondary p-3 rounded-lg" title="Generate Message">
+                                <i class="fas fa-magic"></i> Generate
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="contact-message" class="block mb-2 font-semibold">Message</label>
+                        <textarea id="contact-message" name="message" rows="5" class="form-input" placeholder="Your message..." required></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn-primary w-full py-3 rounded-full text-lg font-semibold transition-transform duration-200 hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- === Footer === -->
+    <footer class="py-12 bg-primary border-t border-accent">
+        <div class="container mx-auto px-6 text-center text-secondary">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://github.com/Bilal-Junaid-Jiwani/" target="_blank" class="text-2xl hover:text-accent-primary"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/bilal-junaid-jiwani/" target="_blank" class="text-2xl hover:text-accent-primary"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2024 Bilal Junaid Jiwani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- === Floating AI Chat Button === -->
+    <button id="ai-floating-btn" title="Chat with AI Assistant">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- === AI Chat Modal (Floating) === -->
+    <div id="ai-chat-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-6 hidden">
+        <div class="bg-secondary rounded-xl shadow-2xl max-w-lg w-full relative flex flex-col h-[60vh]">
+            <div class="p-4 border-b border-accent flex justify-between items-center bg-secondary rounded-t-xl">
+                <h3 class="text-xl font-bold text-primary">AI Assistant</h3>
+                <button id="ai-chat-close" class="text-secondary hover:text-text-primary text-2xl">&times;</button>
+            </div>
+            <div id="ai-chat-history" class="flex-grow overflow-y-auto p-4 space-y-4 bg-primary">
+                <div class="p-3 rounded-lg bg-secondary text-sm max-w-xs"><p>Hello! Main Bilal ka AI assistant hoon. Aap mujhse unke skills, projects, ya experience ke baare mein kuch bhi puch sakte hain.</p></div>
+            </div>
+            <div id="ai-chat-loading" class="hidden p-2 flex items-center gap-2 text-sm text-secondary bg-primary px-4"><div class="loader w-4 h-4 border-2"></div><span>AI soch raha hai...</span></div>
+            <div class="p-4 border-t border-accent bg-secondary rounded-b-xl flex gap-2">
+                <input type="text" id="ai-chat-input" class="w-full px-4 py-2 bg-primary border border-accent rounded-full text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary" placeholder="Sawaal puchein...">
+                <button id="ai-chat-send" class="px-4 py-2 bg-accent-primary text-white rounded-full font-semibold hover:opacity-80">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- === Project Details Modal === -->
+    <div id="project-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-secondary rounded-xl shadow-2xl max-w-2xl w-full relative">
+            <button id="project-modal-close" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-accent-primary text-white">&times;</button>
+            <div class="p-8">
+                <h3 id="project-modal-title" class="text-3xl font-bold mb-4">Project Title</h3>
+                <div id="project-modal-tech" class="flex flex-wrap gap-2 mb-4">
+                    <!-- Badges will be dynamically added here -->
+                </div>
+                <p id="project-modal-desc" class="text-lg text-secondary mb-6">Full project details...</p>
+                <!-- NEW: Live Site and GitHub Repo Buttons -->
+                <div class="flex gap-4 mb-6">
+                    <a id="project-modal-live-link" href="#" target="_blank" class="btn-primary flex-1 text-center py-2 px-4 rounded-full font-semibold hidden">
+                        <i class="fas fa-eye"></i> View Live Site
+                    </a>
+                    <a id="project-modal-repo-link" href="#" target="_blank" class="btn-secondary flex-1 text-center py-2 px-4 rounded-full font-semibold hidden">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+                <button id="project-modal-ai-btn" class="btn-primary w-full py-2 rounded-full font-semibold">
+                    <i class="fas fa-magic"></i> Explain with AI
+                </button>
+                <div id="project-modal-ai-response" class="p-4 bg-primary rounded-lg text-secondary min-h-[100px] max-h-48 overflow-y-auto mt-4 hidden">...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- === AI Skill Modal === -->
+    <div id="skill-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-secondary rounded-xl shadow-2xl max-w-2xl w-full relative">
+            <button id="skill-modal-close" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-accent-primary text-white">&times;</button>
+            <div class="p-8">
+                <h3 id="skill-modal-title" class="text-3xl font-bold mb-4 text-gradient">React</h3>
+                <p id="skill-modal-percentage" class="text-lg text-secondary mb-6">My proficiency level: 60%</p>
+                <div id="skill-modal-content" class="text-secondary text-lg max-h-64 overflow-y-auto relative pb-12">
+                    <!-- AI Response will load here -->
+                    <div class="loader w-8 h-8 border-4 rounded-full mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- === Konami Code (Easter Egg) Modal === -->
+    <div id="konami-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-secondary rounded-xl shadow-2xl max-w-md w-full text-center p-8 relative">
+            <button id="konami-modal-close" class="absolute top-2 right-3 text-2xl text-secondary">&times;</button>
+            <h2 class="text-3xl font-bold mb-4 text-gradient">Secret Unlocked!</h2>
+            <p class="text-lg text-primary mb-4">You found the secret developer code!</p>
+            <p class="text-6xl">🚀</p>
+        </div>
+    </div>
+
+    <!-- === JavaScript === -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Safety Check: API Key ---
+        // YAHAN APNI KEY PASTE KAREIN
+        const apiKey = ""; 
+        
+        // --- Constants (Prompts & Context) ---
+        const CV_CONTEXT = `Bilal is a passionate backend developer skilled in Django, Node.js, and n8n. He has 2 years of WordPress experience (including SEO and AdSense), and is currently learning React at Saylani, Django at Zaitoon Ashraf IT Park, and AI Engineering at PIAIC. His projects include "PitchCraft AI" (from a hackathon), a "Reddit Leads Automation" system (n8n + Python + React), a Financial Banking System, and a Hospital Management System.`;
+        
+        const PROMPTS = {
+            assistant: (p) => `You are the AI Assistant for Muhammad Bilal. Use the following context about Bilal to answer the recruiter's question from Bilal's perspective: "${p}"\n\nContext: ${CV_CONTEXT}`,
+            refactor: (p) => `Refactor this code (make it clean, optimized, and professional). Explain the refactored code with comments:\n\n${p}`,
+            blog: (p) => `Write a short, insightful tech blog post (3-4 paragraphs) on this topic from the perspective of Bilal (a developer skilled in Python, Django, and Node.js): "${p}"`,
+            tech: (p) => `Explain this technology in simple terms: "${p}"`,
+            seo: (p) => `You are an SEO expert. Analyze the following blog post idea from Bilal (a developer with SEO skills) and generate a professional response.
+                Blog Title: "${p[0]}"
+                Keywords/Content: "${p[1]}"
+                Please provide (in HTML format):
+                1.  An optimized, 160-character meta description.
+                2.  A list of 5-7 relevant SEO tags/keywords.`,
+            rephrase: (p, orig) => `Rephrase this intro for Muhammad Bilal (a professional backend developer skilled in Django, Node.js, and n8n) in a new, professional, and impressive way. Only provide the rephrased intro text, nothing else.
+                Current Intro: "${p}"
+                Original Intro (for context): "${orig}"`,
+            skill: (s, pct) => `From the perspective of Muhammad Bilal (a professional full-stack developer with 2 years of WordPress experience, and currently learning React, Django, and AI Engineering), provide a technical explanation for '${s}' (at a ${pct} proficiency level).
+                Explain how Bilal uses this technology, its benefits, and his confidence level.
+                If the skill is 'React' or 'AI Engineering' (In Progress), explain what he is learning at Saylani/PIAIC.
+                Respond in HTML format (use 4 for headings and p for paragraphs).`,
+            project: (t, d, tech) => `Explain this project by Bilal to a recruiter. Detail its technical aspects, potential challenges (especially if it was a Hackathon project like "PitchCraft AI"), and business value from Bilal's perspective.
+                Project Title: ${t}
+                Description: ${d}
+                Technologies: ${tech}`,
+            mail: (k) => `A recruiter/client is writing a professional message to Muhammad Bilal (a backend developer) based on these keywords. Draft the message. Provide only the message body, no "Subject" or "Dear Bilal".
+                Keywords: "${k}"`
+        };
+
+        const SYSTEMS = {
+            assistant: `You are Muhammad Bilal's AI assistant. Answer professionally, friendly, and in the first-person ('I', 'my') based on the provided CV context.`,
+            refactor: "You are an expert senior developer reviewing code. Refactor the code and respond in Markdown format (with code blocks).",
+            blog: `You are a tech blogger (Muhammad Bilal). Your response should be insightful and in the first-person, reflecting skills in backend tech.`,
+            tech: "You are a tech educator who explains complex topics simply.",
+            seo: "You are an expert SEO specialist. Respond in clean HTML format (use 4 for headings, p for description, ul and li for tags).",
+            rephrase: "You are an expert copywriter. You are rephrasing a developer's portfolio intro. The response should be short, professional, and 1-2 lines. Only provide the text.",
+            skill: "You are a senior developer explaining Bilal's technical skills based on his CV. Use technical but clear language.",
+            project: "You are a senior project manager. Keep the response professional and in paragraphs.",
+            mail: "You are a professional assistant. The message should be short, clear, and professional."
+        };
+        
+        // --- Gemini API Function ---
+        async function callGeminiAPI(prompt, systemInstruction = "", retries = 3, delay = 1000) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+            
+            if (systemInstruction) {
+                payload.systemInstruction = {
+                    parts: [{ text: systemInstruction }]
+                };
+            }
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    if (response.status === 429 && retries > 0) { // Throttling
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGeminiAPI(prompt, systemInstruction, retries - 1, delay * 2);
+                    }
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    return "Could not get a response from the AI. Please try again later.";
+                }
+            } catch (error) {
+                console.error('Gemini API call failed:', error);
+                return `API Call Failed: ${error.message}`;
+            }
+        }
+        
+        // --- Helper: Show/Hide Loader ---
+        function setButtonLoading(button, isLoading, defaultHtml) {
+            if (!button) return; // Safety check
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML = '<span class="loader w-5 h-5 border-2 rounded-full mx-auto"></span>';
+            } else {
+                button.disabled = false;
+                if (defaultHtml) {
+                    button.innerHTML = defaultHtml;
+                }
+            }
+        }
+        
+        // --- Feature 2: Theme Switcher ---
+        const themeButtons = document.querySelectorAll('.theme-btn, .mobile-theme-btn');
+        const body = document.body;
+        
+        function setTheme(theme) {
+            body.classList.remove('light-mode', 'dark-mode', 'cyber-mode');
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+            } else if (theme === 'cyber') {
+                body.classList.add('cyber-mode');
+            } else {
+                body.classList.add('dark-mode');
+            }
+            localStorage.setItem('theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                if (btn.dataset.theme === theme) {
+                    btn.classList.add('bg-accent-primary', 'text-white');
+                } else {
+                    btn.classList.remove('bg-accent-primary', 'text-white');
+                }
+            });
+        }
+        
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setTheme(button.dataset.theme);
+            });
+        });
+        
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+        
+        // --- Feature 3: Mobile Menu ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.querySelectorAll('a, .mobile-theme-btn').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // --- Feature 4: Typing Hero Animation ---
+        const typingHero = document.getElementById('typing-hero');
+        if (typingHero) {
+            const roles = ["Full-Stack Developer", "Backend Developer", "Django Specialist", "n8n Automator", "WordPress Expert", "AI Engineer (In-Training)"];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let timeoutId;
+
+            function type() {
+                const currentRole = roles[roleIndex];
+                if (isDeleting) {
+                    typingHero.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingHero.textContent = currentRole.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 100 : 150;
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typeSpeed = 500;
+                }
+                
+                timeoutId = setTimeout(type, typeSpeed);
+            }
+            type();
+        }
+
+        // --- Feature 5: Hero "Rephrase" AI ---
+        const rephraseBtn = document.getElementById('rephrase-btn');
+        const introTextEl = document.getElementById('hero-intro-text');
+        
+        if (rephraseBtn && introTextEl) {
+            const originalIntro = introTextEl.textContent.trim();
+            rephraseBtn.addEventListener('click', async () => {
+                const currentText = introTextEl.textContent.trim();
+                const originalBtnHtml = rephraseBtn.innerHTML;
+                setButtonLoading(rephraseBtn, true);
+                
+                const response = await callGeminiAPI(PROMPTS.rephrase(currentText, originalIntro), SYSTEMS.rephrase);
+                introTextEl.textContent = response.replace(/"/g, ''); // Remove quotes
+                
+                setButtonLoading(rephraseBtn, false, originalBtnHtml);
+            });
+        }
+        
+        // --- Feature 6: Skill Tabs ---
+        const skillTabs = document.getElementById('skill-tabs');
+        const skillContent = document.getElementById('skill-content');
+        if (skillTabs && skillContent) {
+            const tabBtns = skillTabs.querySelectorAll('.skill-tab-btn');
+            const tabContents = skillContent.querySelectorAll('.skill-tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => {
+                        b.classList.remove('text-primary', 'border-accent-primary');
+                        b.classList.add('text-secondary', 'border-transparent');
+                    });
+                    btn.classList.add('text-primary', 'border-accent-primary');
+                    btn.classList.remove('text-secondary', 'border-transparent');
+                    
+                    const tab = btn.dataset.tab;
+                    tabContents.forEach(content => {
+                        content.classList.toggle('hidden', content.dataset.tab !== tab);
+                    });
+                });
+            });
+        }
+        
+        // --- Feature 7: AI Skill Explainer Modal ---
+        const skillModal = document.getElementById('skill-modal');
+        const skillModalClose = document.getElementById('skill-modal-close');
+        const skillModalTitle = document.getElementById('skill-modal-title');
+        const skillModalPercentage = document.getElementById('skill-modal-percentage');
+        const skillModalContent = document.getElementById('skill-modal-content');
+        const skillCards = document.querySelectorAll('.skill-circle-card');
+        
+        if (skillModal && skillModalClose && skillCards.length > 0) {
+            skillCards.forEach(card => {
+                card.addEventListener('click', async () => {
+                    const skill = card.dataset.skill;
+                    const percentage = card.dataset.percentage;
+                    
+                    skillModalTitle.textContent = skill;
+                    skillModalPercentage.textContent = `My proficiency level: ${percentage}`;
+                    skillModalContent.innerHTML = '<div class="loader w-8 h-8 border-4 rounded-full mx-auto"></div>';
+                    skillModal.classList.remove('hidden');
+                    
+                    const response = await callGeminiAPI(PROMPTS.skill(skill, percentage), SYSTEMS.skill);
+                    skillModalContent.innerHTML = response;
+                });
+            });
+            
+            skillModalClose.addEventListener('click', () => {
+                skillModal.classList.add('hidden');
+            });
+        }
+        
+        // --- Feature 8: Project Details Modal ---
+        const projectModal = document.getElementById('project-modal');
+        const projectModalClose = document.getElementById('project-modal-close');
+        const projectModalTitle = document.getElementById('project-modal-title');
+        const projectModalTech = document.getElementById('project-modal-tech');
+        const projectModalDesc = document.getElementById('project-modal-desc');
+        const projectModalAiBtn = document.getElementById('project-modal-ai-btn');
+        const projectModalAiResponse = document.getElementById('project-modal-ai-response');
+        const projectModalBtns = document.querySelectorAll('.project-modal-btn');
+        const projectModalLiveLink = document.getElementById('project-modal-live-link');
+        const projectModalRepoLink = document.getElementById('project-modal-repo-link');
+        
+        if (projectModal && projectModalClose && projectModalBtns.length > 0) {
+            projectModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const data = btn.dataset;
+                    
+                    projectModalTitle.textContent = data.title;
+                    projectModalDesc.textContent = data.desc;
+                    projectModalTech.innerHTML = data.tech.split(',').map(t => `<span class="badge">${t.trim()}</span>`).join('');
+                    
+                    if (data.linkLive && data.linkLive !== '#') {
+                        projectModalLiveLink.href = data.linkLive;
+                        projectModalLiveLink.classList.remove('hidden');
+                    } else {
+                        projectModalLiveLink.classList.add('hidden');
+                    }
+                    
+                    if (data.linkRepo && data.linkRepo !== '#') {
+                        projectModalRepoLink.href = data.linkRepo;
+                        projectModalRepoLink.classList.remove('hidden');
+                    } else {
+                        projectModalRepoLink.classList.add('hidden');
+                    }
+                    
+                    projectModalAiResponse.classList.add('hidden');
+                    projectModalAiResponse.innerHTML = "..."; 
+                    projectModalAiBtn.innerHTML = '<i class="fas fa-magic"></i> Explain with AI'; 
+                    projectModal.classList.remove('hidden');
+                });
+            });
+            
+            projectModalClose.addEventListener('click', () => {
+                projectModal.classList.add('hidden');
+            });
+            
+            projectModalAiBtn.addEventListener('click', async () => {
+                const title = projectModalTitle.textContent;
+                const desc = projectModalDesc.textContent;
+                const tech = Array.from(projectModalTech.children).map(b => b.textContent).join(', ');
+                
+                const originalBtnHtml = projectModalAiBtn.innerHTML;
+                setButtonLoading(projectModalAiBtn, true);
+                const response = await callGeminiAPI(PROMPTS.project(title, desc, tech), SYSTEMS.project);
+                setButtonLoading(projectModalAiBtn, false, originalBtnHtml);
+                
+                projectModalAiResponse.innerHTML = response;
+                projectModalAiResponse.classList.remove('hidden');
+            });
+        }
+        
+        // --- Feature 9: AI Command Center Tabs ---
+        const aiTabs = document.getElementById('ai-tabs');
+        const aiTabContents = document.querySelectorAll('.ai-tab-content');
+        if (aiTabs && aiTabContents.length > 0) {
+            const aiTabBtns = aiTabs.querySelectorAll('.ai-tab-btn');
+            
+            aiTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    aiTabBtns.forEach(b => {
+                        b.classList.remove('text-primary', 'border-accent-primary');
+                        b.classList.add('text-secondary', 'border-transparent');
+                    });
+                    btn.classList.add('text-primary', 'border-accent-primary');
+                    btn.classList.remove('text-secondary', 'border-transparent');
+                    
+                    const tab = btn.dataset.tab;
+                    aiTabContents.forEach(content => {
+                        content.classList.toggle('hidden', content.dataset.tab !== tab);
+                    });
+                });
+            });
+        }
+        
+        // --- Feature 10: AI Center - All Tools ---
+        const aiFeatureConfigs = [
+            { btn: 'ai-chat-btn', input: 'ai-chat-input', output: 'ai-chat-response', 
+              promptFunc: PROMPTS.assistant, system: SYSTEMS.assistant },
+              
+            { btn: 'ai-refactor-btn', input: 'ai-refactor-input', output: 'ai-refactor-response', 
+              promptFunc: PROMPTS.refactor, system: SYSTEMS.refactor, isCode: true },
+              
+            { btn: 'ai-blog-btn', input: 'ai-blog-input', output: 'ai-blog-response', 
+              promptFunc: PROMPTS.blog, system: SYSTEMS.blog },
+              
+            { btn: 'ai-tech-btn', input: 'ai-tech-input', output: 'ai-tech-response', 
+              promptFunc: PROMPTS.tech, system: SYSTEMS.tech },
+              
+            { btn: 'ai-seo-btn', input: ['ai-seo-title', 'ai-seo-keywords'], output: 'ai-seo-response', 
+              promptFunc: PROMPTS.seo, system: SYSTEMS.seo, isMulti: true }
+        ];
+
+        aiFeatureConfigs.forEach(feature => {
+            const btn = document.getElementById(feature.btn);
+            const output = document.getElementById(feature.output);
+            
+            if (btn && output) {
+                btn.addEventListener('click', async () => {
+                    let promptText = "";
+                    let inputsValid = true;
+                    
+                    if (feature.isMulti) {
+                        const inputs = feature.input.map(id => {
+                            const el = document.getElementById(id);
+                            if (!el.value) {
+                                el.placeholder = "This field is required.";
+                                inputsValid = false;
+                            }
+                            return el.value;
+                        });
+                        if (!inputsValid) return;
+                        promptText = inputs; // Pass as array
+                    } else {
+                        const input = document.getElementById(feature.input);
+                        promptText = input.value;
+                        if (!promptText) {
+                            input.placeholder = "This field is required.";
+                            return;
+                        }
+                    }
+                    
+                    const originalBtnHtml = btn.innerHTML;
+                    setButtonLoading(btn, true);
+                    output.innerHTML = '<div class="loader w-8 h-8 border-4 rounded-full mx-auto"></div>';
+                    
+                    const response = await callGeminiAPI(feature.promptFunc(promptText), feature.system);
+                    
+                    setButtonLoading(btn, false, originalBtnHtml);
+                    
+                    if (feature.isCode) {
+                        output.innerHTML = response.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-primary border border-accent p-4 rounded-lg overflow-x-auto"><code class="language-$1">$2</code></pre>').replace(/`([^`]+)`/g, '<code class="bg-primary px-1 rounded">$1</code>');
+                    } else {
+                         output.innerHTML = response.replace(/<br>/g, '<br><br>');
+                    }
+                });
+            }
+        });
+
+        // --- Feature 11: Contact Form AI Draft ---
+        const draftBtn = document.getElementById('ai-draft-btn');
+        const draftInput = document.getElementById('ai-draft-input');
+        const messageBox = document.getElementById('contact-message');
+        
+        if (draftBtn && draftInput && messageBox) {
+            draftBtn.addEventListener('click', async () => {
+                const keywords = draftInput.value;
+                if (!keywords) {
+                    draftInput.placeholder = "Please enter keywords first!";
+                    return;
+                }
+                
+                const originalBtnHtml = draftBtn.innerHTML;
+                setButtonLoading(draftBtn, true);
+                
+                const response = await callGeminiAPI(PROMPTS.mail(keywords), SYSTEMS.mail);
+                messageBox.value = response.replace(/"/g, '').replace(/<br>/g, '\n');
+                
+                setButtonLoading(draftBtn, false, originalBtnHtml);
+            });
+        }
+        
+        // --- Feature 12: Konami Code (Easter Egg) ---
+        const konamiModal = document.getElementById('konami-modal');
+        const konamiModalClose = document.getElementById('konami-modal-close');
+        if (konamiModal && konamiModalClose) {
+            const secretCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let konamiIndex = 0;
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === secretCode[konamiIndex]) {
+                    konamiIndex++;
+                    if (konamiIndex === secretCode.length) {
+                        konamiModal.classList.remove('hidden');
+                        konamiIndex = 0; // Reset
+                    }
+                } else {
+                    konamiIndex = 0;
+                }
+            });
+            
+            konamiModalClose.addEventListener('click', () => {
+                konamiModal.classList.add('hidden');
+            });
+        }
+
+        // --- Feature 13: Animated Stats (FIXED) ---
+        const statsBar = document.querySelector('#stats-bar');
+        if (statsBar) {
+            const statObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    const stats = {
+                        "stat-projects": 6,
+                        "stat-commits": 500, 
+                        "stat-skills": 15,
+                        "stat-years": 2
+                    };
+                    for (const [id, target] of Object.entries(stats)) {
+                        const el = document.getElementById(id);
+                        if(el) animateStat(el, target);
+                    }
+                    statObserver.unobserve(statsBar);
+                }
+            }, { threshold: 0.5 });
+            statObserver.observe(statsBar);
+        }
+
+        function animateStat(el, target) {
+            let current = 0;
+            const step = Math.ceil(target / 100) || 1;
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = `${target}+`;
+                    clearInterval(interval);
+                } else {
+                    el.textContent = `${current}+`;
+                }
+            }, 20);
+        }
+        
+        // --- Feature 14: 3D Hero Background ---
+        const heroCanvas = document.getElementById('hero-canvas');
+        if (heroCanvas) {
+            try {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true });
+                
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                const geometry = new THREE.BufferGeometry();
+                const count = 5000;
+                const positions = new Float32Array(count * 3);
+                
+                for(let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 10;
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                
+                const material = new THREE.PointsMaterial({
+                    size: 0.015,
+                    color: 0xffffff,
+                    transparent: true,
+                });
+                
+                const points = new THREE.Points(geometry, material);
+                scene.add(points);
+                
+                camera.position.z = 5;
+                
+                let mouseX = 0, mouseY = 0;
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+                });
+                
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+                
+                const clock = new THREE.Clock();
+                
+                function animate() {
+                    requestAnimationFrame(animate);
+                    const elapsedTime = clock.getElapsedTime();
+                    
+                    points.rotation.y = elapsedTime * 0.1;
+                    points.rotation.x = elapsedTime * 0.05;
+                    
+                    camera.position.x += (mouseX - camera.position.x) * 0.05;
+                    camera.position.y += (mouseY - camera.position.y) * 0.05;
+                    
+                    renderer.render(scene, camera);
+                }
+                animate();
+            } catch (error) {
+                console.error("3D Hero load nahi hua:", error);
+                if (heroCanvas) heroCanvas.style.display = 'none';
+            }
+        }
+
+        // --- Floating AI Chat ---
+        const floatingBtn = document.getElementById('ai-floating-btn');
+        const floatingModal = document.getElementById('ai-chat-modal');
+        const floatingClose = document.getElementById('ai-chat-close');
+        const floatingInput = document.getElementById('ai-chat-input');
+        const floatingSend = document.getElementById('ai-chat-send');
+        const floatingHistory = document.getElementById('ai-chat-history');
+        const floatingLoading = document.getElementById('ai-chat-loading');
+
+        if (floatingBtn && floatingModal) {
+            floatingBtn.addEventListener('click', () => {
+                floatingModal.classList.remove('hidden');
+            });
+            
+            floatingClose.addEventListener('click', () => {
+                floatingModal.classList.add('hidden');
+            });
+
+            async function handleFloatingChat() {
+                const query = floatingInput.value.trim();
+                if (!query) return;
+
+                appendFloatingMessage(query, 'user');
+                floatingInput.value = '';
+                floatingLoading.classList.remove('hidden');
+
+                const response = await callGeminiAPI(PROMPTS.assistant(query), SYSTEMS.assistant);
+                appendFloatingMessage(response, 'ai');
+                floatingLoading.classList.add('hidden');
+            }
+
+            floatingSend.addEventListener('click', handleFloatingChat);
+            floatingInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleFloatingChat());
+
+            function appendFloatingMessage(message, sender) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+                
+                const bubble = document.createElement('div');
+                bubble.className = `p-3 rounded-lg text-sm max-w-[80%] ${sender === 'user' ? 'bg-accent-primary text-white' : 'bg-secondary text-text-primary'}`;
+                bubble.innerHTML = message.replace(/<br>/g, '\n');
+
+                msgDiv.appendChild(bubble);
+                floatingHistory.appendChild(msgDiv);
+                floatingHistory.scrollTop = floatingHistory.scrollHeight;
+            }
+        }
+
+    }); // --- END OF DOMCONTENTLOADED ---
+    </script>
+</body>
+</html>
