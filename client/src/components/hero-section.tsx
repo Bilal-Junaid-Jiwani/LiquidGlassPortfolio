@@ -147,7 +147,7 @@ export function HeroSection() {
               className="rounded-full text-lg px-8 py-6 glass-card hover-elevate active-elevate-2 transition-all duration-200 group"
               data-testid="button-download-cv"
             >
-              <a href="../../public/MUHAMMAD BILAL CV (6).pdf" download>
+              <a href="/MUHAMMAD BILAL CV (6).pdf" download>
                 <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
                 Download CV
               </a>

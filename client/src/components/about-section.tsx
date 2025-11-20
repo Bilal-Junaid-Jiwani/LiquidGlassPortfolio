@@ -21,7 +21,7 @@ export function AboutSection({ timeline }: AboutSectionProps) {
             <div className="absolute -inset-4 bg-gradient-to-r from-primary to-chart-3 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
             <div className="relative glass-card rounded-full p-2 overflow-hidden">
               <img
-                src="../../public/WhatsApp Image 2025-10-19 at 14.38.25_24722ce9.webp"
+                src="/WhatsApp Image 2025-10-19 at 14.38.25_24722ce9.webp"
                 alt="Bilal Junaid Jiwani"
                 className="w-full aspect-square object-cover rounded-full"
                 data-testid="img-profile"
