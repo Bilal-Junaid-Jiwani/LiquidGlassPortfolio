@@ -62,7 +62,7 @@ export default function Portfolio() {
             className="text-2xl font-black bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent"
             data-testid="link-logo"
           >
-            BJ.
+            M.Bilal
           </a>
 
           {/* Desktop Navigation */}

@@ -21,7 +21,7 @@ export function AboutSection({ timeline }: AboutSectionProps) {
             <div className="absolute -inset-4 bg-gradient-to-r from-primary to-chart-3 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
             <div className="relative glass-card rounded-full p-2 overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=600&fit=crop"
+                src="../../public/WhatsApp Image 2025-10-19 at 14.38.25_24722ce9.webp"
                 alt="Bilal Junaid Jiwani"
                 className="w-full aspect-square object-cover rounded-full"
                 data-testid="img-profile"
@@ -35,9 +35,7 @@ export function AboutSection({ timeline }: AboutSectionProps) {
               My Journey
             </h3>
             <p className="text-base md:text-lg text-muted-foreground mb-8 leading-relaxed" data-testid="text-journey-description">
-              I'm a passionate developer skilled in Django, Node.js, and n8n, with a strong
-              interest in creating end-to-end web solutions. I also enjoy working on modern
-              frontend designs to deliver smooth and engaging user experiences.
+              I'm a passionate developer skilled in Python, JavaScript, Django, Node.js and n8n, with a strong interest in creating end-to-end web solutions. I also enjoy working on modern frontend designs to deliver smooth and engaging user experiences.
             </p>
 
             {/* Timeline */}
