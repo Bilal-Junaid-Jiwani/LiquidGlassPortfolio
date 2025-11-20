@@ -22,11 +22,11 @@
     },
     {
       "src": "/(.*\\.[A-Za-z0-9]+$)",
-      "dest": "/dist/$1"
+      "dest": "/dist/public/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/index.html"
+      "dest": "/dist/public/index.html"
     }
   ]
 }
