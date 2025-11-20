@@ -9,6 +9,8 @@ import { ProjectsSection } from "@/components/projects-section";
 import { ContactSection } from "@/components/contact-section";
 import { Button } from "@/components/ui/button";
 
+import { PersonalAssistant } from "@/components/personal-assistant";
+
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -218,6 +220,7 @@ export default function Portfolio() {
           </p>
         </div>
       </footer>
+      <PersonalAssistant />
     </div>
   );
 }

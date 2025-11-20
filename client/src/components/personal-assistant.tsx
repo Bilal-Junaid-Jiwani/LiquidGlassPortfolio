@@ -1,147 +1,156 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Bot, X, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import { MessageSquare, Bot, User, CornerDownLeft, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { AnimatePresence, motion } from "framer-motion";
 
-const assistantData = {
-  name: "Bilal's AI Assistant",
-  introduction: "Hello! I'm Bilal's AI assistant. You can ask me about his skills, projects, or experience.",
-  responses: {
-    "who are you": "I am an AI assistant for Muhammad Bilal Junaid Jiwani, a passionate Full-Stack Developer.",
-    "who is the owner": "The owner of this portfolio is Muhammad Bilal Junaid Jiwani, a passionate Full-Stack Developer.",
-    "what is his name": "His name is Muhammad Bilal Junaid Jiwani.",
-    "what are his skills": "Bilal is skilled in a wide range of technologies. His frontend skills include React, JavaScript, Tailwind CSS, Bootstrap, HTML, and CSS. For the backend, he uses Django, Node.js, Python, MongoDB, PostgreSQL, and Firebase. He is also proficient with tools like n8n, Git & GitHub, WordPress, Google AdSense, SEO, and Amazon VA. You can see more details in the skills section.",
-    "frontend skills": "Bilal's frontend skills include React, JavaScript, Tailwind CSS, Bootstrap, HTML, and CSS.",
-    "backend skills": "For the backend, he uses Django, Node.js, Python, MongoDB, PostgreSQL, and Firebase.",
-    "tools": "He is proficient with tools like n8n, Git & GitHub, WordPress, Google AdSense, SEO, and Amazon VA.",
-    "what is his experience": "Bilal has 2 years of experience as a WordPress Developer (2023-2024), where he also managed Google AdSense and ADX publishing. He is currently enhancing his skills in Modern Web Application Development at Saylani Institute and pursuing a certification in Agentic & Robotic AI Engineering at PIAIC. He also won a hackathon at Zaitoon Ashraf IT Park where he developed 'Pitch Craft AI'.",
-    "education": "Bilal is currently learning Modern Web Application Development at Saylani Institute and pursuing a certification in Agentic & Robotic AI Engineering at PIAIC.",
-    "journey": "Bilal's journey includes 2 years of experience as a WordPress Developer, managing Google AdSense and ADX publishing. He is now focused on modern web development and AI, studying at Saylani Institute and PIAIC. He is also a hackathon winner.",
-    "projects": "Bilal has worked on several projects, including 'PitchCraft AI' (a hackathon-winning AI-powered pitch generation tool), a Financial Banking System with Django, a Hospital Management System with Django, and a Reddit Leads Automation system using n8n, Python, and React. You can find more details in the projects section.",
-    "pitchcraft ai": "PitchCraft AI is an AI-powered pitch generation and website code tool for startup ideas. It was developed as part of a hackathon, which Bilal won.",
-    "contact": "You can contact Bilal using the contact form on this page.",
-    "default": "I'm not sure how to answer that. Please try asking another question. You can ask about Bilal's skills, experience, projects, or how to contact him."
+const cvData = `
+Name: Muhammad Bilal
+Profile: A passionate backend developer skilled in Django, Node.js, and n8n, with a strong interest in creating end-to-end web solutions. I also enjoy working on modern frontend designs to deliver smooth and engaging user experiences.
+Skills:
+- Backend: Django, Node.js, n8n
+- Frontend: HTML, CSS, Bootstrap, JavaScript, React, Tailwind CSS
+- CMS: WordPress (2 Years Experience)
+- E-commerce: Amazon Virtual Assistant
+- Digital Skills: Blogging, Google AdSense, SEO & Monetization
+- Databases: SQLite, PostgreSQL, MongoDB (Basic)
+- Tools: Git, GitHub, Postman, Supabase, Vercel, PythonAnywhere
+- Soft Skills: Communication, Problem Solving, Continuous Learning
+Experience:
+- Hackathon at Zaitoon Ashraf IT Park (19-OCT-25): Engaged in brainstorming, adaptive problem-solving, and rapid prototyping. Created a full-stack web application called "Pitch Craft".
+- WordPress Developer (Self-employed | May 2023 – 2024): Developed and maintained custom WordPress websites, built responsive themes and custom plugins, ensured website optimization, and provided technical support.
+- Amazon Virtual Assistant (Self-employed | Fresher): Managed product listings and inventory, processed orders, and handled customer service.
+- Google AdSense Publisher (Self-employed | July 2023 – 2024): Monetized websites via strategic ad placements and analyzed data to optimize ad performance.
+- Google Ad Manager (ADX) Publisher (Self-employed | March 2023 – 2024): Managed ad inventory and campaigns, partnered with advertisers, and tracked KPIs.
+Education:
+- Govt. Degree Boys College: HSC Part I-II (Computer Science) – Karachi, Pakistan
+- PAK-TURK Maarif International School & Colleges: SSC Part I-II (Computer Science) – Karachi, Pakistan
+Professional Development (In Progress):
+- Modern Web Application Development – Saylani Institute (Covered: HTML, CSS, Javascript, NodeJS Express, Tailwind; Currently Learning: ReactJS)
+- Certified Agentic and Robotic AI Engineer (CAE) – Presidential Initiative for Artificial Intelligence & Computing (PIAIC) (Covered: Prompt Engineering, N8N workflow automation; Currently Learning: Python)
+- Python Webmastery – Zaitoon Ashraf IT Park by Saylani (Completed) (Covered: Python, Django Framework)
+Projects:
+- PitchCraft AI: Transform your startup idea into a complete business package with AI-powered pitch generation and professional website code.
+- Financial-Banking-System: Developed a Financial management system based on Django framework.
+- Hospital-Managment-System: Developed a hospital management system based on Django framework.
+- JUNAIDJIWANI: Developed a content-focused blog monetized with AdSense.
+- DisplayJBZ: Created a niche website using Google ADX for high-yield ad revenue.
+- Django Login System: Built a user authentication app (GitHub + PythonAnywhere).
+Interests: Web Development, E-commerce, Digital Marketing, Technology Trends
+Contact:
+- EMAIL: bilaljunaidjiwani@gmail.com
+- GITHUB: https://github.com/Bilal-Junaid-Jiwani/
+- CELL: +923082887469
+`;
+
+const getAIResponse = (question: string): string => {
+  const lowerCaseQuestion = question.toLowerCase();
+
+  if (lowerCaseQuestion.includes("hello") || lowerCaseQuestion.includes("hi")) {
+    return "Hello! I am Muhammad Bilal's AI assistant. How can I help you today?";
   }
+
+  if (lowerCaseQuestion.includes("skills")) {
+    return `I have experience with the following skills:
+- Backend: Django, Node.js, n8n
+- Frontend: HTML, CSS, Bootstrap, JavaScript, React, Tailwind CSS
+- CMS: WordPress (2 Years Experience)
+- Databases: SQLite, PostgreSQL, MongoDB (Basic)
+- Tools: Git, GitHub, Postman, Supabase, Vercel, PythonAnywhere`;
+  }
+
+  if (lowerCaseQuestion.includes("experience")) {
+    return `I have experience as a WordPress Developer, Amazon Virtual Assistant, and Google AdSense/ADX Publisher. I also participated in a hackathon where I created a full-stack web application called "Pitch Craft".`;
+  }
+
+  if (lowerCaseQuestion.includes("projects")) {
+    return `I have worked on several projects, including:
+- PitchCraft AI: An AI-powered pitch generation tool.
+- Financial-Banking-System: A financial management system based on Django.
+- Hospital-Managment-System: A hospital management system based on Django.
+You can find more details on my GitHub profile.`;
+  }
+
+  if (lowerCaseQuestion.includes("education")) {
+    return `I have completed my HSC from Govt. Degree Boys College and my SSC from PAK-TURK Maarif International School & Colleges. I am also pursuing professional development courses in Modern Web Application Development and AI.`;
+  }
+
+  if (lowerCaseQuestion.includes("contact")) {
+    return `You can contact me via email at bilaljunaidjiwani@gmail.com or find me on GitHub at https://github.com/Bilal-Junaid-Jiwani/.`;
+  }
+
+  if (lowerCaseQuestion.includes("about you")) {
+    return `I am a passionate backend developer skilled in Django, Node.js, and n8n, with a strong interest in creating end-to-end web solutions. I also enjoy working on modern frontend designs to deliver smooth and engaging user experiences.`;
+  }
+
+  return "I am sorry, I do not have the answer to that question. Please try asking another question about my skills, experience, or projects.";
 };
 
-type Message = {
-  text: string;
-  sender: "user" | "bot";
-};
 
 export function PersonalAssistant() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<{ type: 'user' | 'bot'; text: string }[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSendMessage = () => {
-    if (inputValue.trim() === "") return;
-
-    const userMessage: Message = { text: inputValue, sender: "user" };
-    setMessages((prev) => [...prev, userMessage]);
-
-    const botResponse = getBotResponse(inputValue);
-    const botMessage: Message = { text: botResponse, sender: "bot" };
-
-    setTimeout(() => {
-      setMessages((prev) => [...prev, botMessage]);
-    }, 500);
-
-    setInputValue("");
-  };
-
-  const getBotResponse = (input: string): string => {
-    const lowercasedInput = input.toLowerCase();
-    for (const keyword in assistantData.responses) {
-      if (lowercasedInput.includes(keyword)) {
-        return (assistantData.responses as any)[keyword];
-      }
+    if (inputValue.trim()) {
+      const userMessage = { type: 'user' as 'user', text: inputValue };
+      setMessages((prev) => [...prev, userMessage]);
+      const botResponse = { type: 'bot' as 'bot', text: getAIResponse(inputValue) };
+      setTimeout(() => {
+        setMessages((prev) => [...prev, botResponse]);
+      }, 500);
+      setInputValue("");
     }
-    return assistantData.responses.default;
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="fixed h-16 w-16 rounded-full bg-primary/80 text-primary-foreground backdrop-blur-sm hover:bg-primary active:scale-95 transition-all"
-          style={{ bottom: '1.5rem', right: '1.5rem', left: 'auto' }}
+    <>
+      <div className="fixed bottom-8 right-8 z-50">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="rounded-full w-16 h-16 glass-card shadow-lg hover-elevate active-elevate-2 transition-all duration-300 flex items-center justify-center"
         >
-          <Bot className="h-8 w-8" />
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent className="h-[80vh] bg-background/80 backdrop-blur-xl border-t-0">
-        <div className="container mx-auto h-full flex flex-col">
-          <DrawerHeader className="relative">
-            <DrawerTitle className="text-2xl font-bold text-center">
-              {assistantData.name}
-            </DrawerTitle>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => setIsOpen(false)}>
-              <X />
-            </Button>
-          </DrawerHeader>
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-start gap-3"
-              >
-                <div className="p-2 rounded-full bg-primary/20 text-primary">
-                  <Bot />
-                </div>
-                <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                  <p>{assistantData.introduction}</p>
-                </div>
-              </motion.div>
-              {messages.map((msg, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex items-start gap-3 ${msg.sender === "user" ? "justify-end" : ""}`}
-                >
-                  {msg.sender === "bot" && (
-                    <div className="p-2 rounded-full bg-primary/20 text-primary">
-                      <Bot />
-                    </div>
-                  )}
-                  <div className={`rounded-lg p-3 max-w-[80%] ${msg.sender === "user" ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
-                    <p>{msg.text}</p>
-                  </div>
-                  {msg.sender === "user" && (
-                    <div className="p-2 rounded-full bg-muted text-muted-foreground">
-                      <User />
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </AnimatePresence>
+          {isOpen ? <X size={32} /> : <Bot size={32} />}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="fixed bottom-28 right-8 z-50 w-80 h-[28rem] glass-card rounded-2xl shadow-2xl flex flex-col animate-in fade-in slide-in-from-bottom-4">
+          <div className="p-4 border-b border-border/50">
+            <h3 className="font-bold text-lg">AI Assistant</h3>
+            <p className="text-sm text-muted-foreground">Ask me anything about Bilal!</p>
           </div>
-          <div className="p-4 border-t">
-            <div className="relative">
-              <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                placeholder="Ask a question..."
-                className="pr-12 h-12 rounded-full"
-              />
-              <Button
-                size="icon"
-                className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full"
-                onClick={handleSendMessage}
-              >
-                <CornerDownLeft />
-              </Button>
-            </div>
+          <div className="flex-1 p-4 overflow-y-auto">
+            {messages.map((msg, index) => (
+              <div key={index} className={`flex items-start gap-3 my-3 ${msg.type === 'user' ? 'justify-end' : ''}`}>
+                {msg.type === 'bot' && <Bot className="w-6 h-6 flex-shrink-0" />}
+                <div className={`rounded-xl p-3 max-w-[80%] ${msg.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                  <p className="text-sm">{msg.text}</p>
+                </div>
+                {msg.type === 'user' && <User className="w-6 h-6 flex-shrink-0" />}
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+          <div className="p-4 border-t border-border/50 flex items-center gap-2">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              placeholder="Ask a question..."
+              className="flex-1 bg-transparent focus:outline-none"
+            />
+            <button onClick={handleSendMessage} className="p-2 rounded-full bg-primary text-primary-foreground">
+              <Send size={20} />
+            </button>
           </div>
         </div>
-      </DrawerContent>
-    </Drawer>
+      )}
+    </>
   );
 }
