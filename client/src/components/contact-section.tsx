@@ -65,7 +65,7 @@ export function ContactSection() {
           Get In <span className="bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent">Touch</span>
         </h2>
 
-        <div className="glass-heavy rounded-3xl p-8 md:p-12">
+        <div className="glass-card rounded-3xl p-8 md:p-12">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">

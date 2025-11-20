@@ -106,7 +106,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         {/* Main Glass Card */}
-        <div className="glass-heavy rounded-3xl p-12 md:p-16 mb-8 hover-elevate transition-all duration-500">
+        <div className="glass-card rounded-3xl p-12 md:p-16 mb-8 hover-elevate transition-all duration-500">
           <h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight"
             data-testid="text-hero-name"
@@ -143,9 +143,8 @@ export function HeroSection() {
             </Button>
             <Button
               size="lg"
-              variant="outline"
               asChild
-              className="rounded-full text-lg px-8 py-6 glass hover-elevate active-elevate-2 transition-all duration-200 group"
+              className="rounded-full text-lg px-8 py-6 glass-card hover-elevate active-elevate-2 transition-all duration-200 group"
               data-testid="button-download-cv"
             >
               <a href="#" download>

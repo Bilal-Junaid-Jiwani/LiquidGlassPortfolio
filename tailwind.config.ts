@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -109,5 +110,17 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".glass-card": {
+          "background-color": "hsl(var(--card) / 0.6)",
+          "backdrop-filter": "blur(var(--backdrop-blur-lg))",
+          "border": "1px solid hsl(var(--card) / 0.1)",
+        },
+      });
+    }),
+  ],
 } satisfies Config;

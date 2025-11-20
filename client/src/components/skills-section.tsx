@@ -28,13 +28,13 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
 
         <Tabs defaultValue="frontend" className="w-full" onValueChange={(v) => setActiveCategory(v as any)}>
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12 glass-card p-1 rounded-2xl">
-            <TabsTrigger value="frontend" className="rounded-xl data-[state=active]:glass-heavy" data-testid="tab-frontend">
+            <TabsTrigger value="frontend" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-frontend">
               Frontend
             </TabsTrigger>
-            <TabsTrigger value="backend" className="rounded-xl data-[state=active]:glass-heavy" data-testid="tab-backend">
+            <TabsTrigger value="backend" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-backend">
               Backend
             </TabsTrigger>
-            <TabsTrigger value="tools" className="rounded-xl data-[state=active]:glass-heavy" data-testid="tab-tools">
+            <TabsTrigger value="tools" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-tools">
               Tools
             </TabsTrigger>
           </TabsList>

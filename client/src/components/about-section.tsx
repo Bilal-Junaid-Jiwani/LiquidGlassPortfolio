@@ -19,11 +19,11 @@ export function AboutSection({ timeline }: AboutSectionProps) {
           {/* Profile Image */}
           <div className="relative group">
             <div className="absolute -inset-4 bg-gradient-to-r from-primary to-chart-3 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-            <div className="relative glass-card rounded-3xl p-2 overflow-hidden">
+            <div className="relative glass-card rounded-full p-2 overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=600&fit=crop"
                 alt="Bilal Junaid Jiwani"
-                className="w-full aspect-square object-cover rounded-2xl"
+                className="w-full aspect-square object-cover rounded-full"
                 data-testid="img-profile"
               />
             </div>

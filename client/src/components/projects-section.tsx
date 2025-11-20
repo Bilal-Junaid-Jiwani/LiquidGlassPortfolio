@@ -54,8 +54,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {project.technologies.map((tech) => (
                     <Badge
                       key={tech}
-                      variant="secondary"
-                      className="glass rounded-full"
+                      
+                      className="glass-card rounded-full"
                       data-testid={`badge-tech-${project.id}-${tech.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       {tech}
@@ -69,7 +69,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         {/* Project Modal */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="glass-heavy rounded-3xl max-w-3xl border-0" data-testid="dialog-project-details">
+          <DialogContent className="glass-card rounded-3xl max-w-3xl border-0" data-testid="dialog-project-details">
             <DialogHeader>
               <DialogTitle className="text-3xl font-black" data-testid="text-modal-project-title">
                 {selectedProject?.title}
@@ -82,8 +82,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                 {selectedProject?.technologies.map((tech) => (
                   <Badge
                     key={tech}
-                    variant="secondary"
-                    className="glass rounded-full"
+                    
+                    className="glass-card rounded-full"
                     data-testid={`badge-modal-tech-${tech.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     {tech}
@@ -118,8 +118,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                 {selectedProject?.repoLink && (
                   <Button
                     asChild
-                    variant="outline"
-                    className="rounded-full glass hover-elevate"
+                    
+                    className="rounded-full glass-card hover-elevate"
                     data-testid="button-modal-repo-link"
                   >
                     <a
