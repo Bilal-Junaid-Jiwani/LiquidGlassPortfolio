@@ -27,7 +27,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
         </h2>
 
         <Tabs defaultValue="frontend" className="w-full" onValueChange={(v) => setActiveCategory(v as any)}>
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12 glass-card p-1 rounded-2xl">
+          <TabsList className="grid w-full max-w-full sm:max-w-md mx-auto grid-cols-3 mb-12 glass-card p-1 rounded-2xl">
             <TabsTrigger value="frontend" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-frontend">
               Frontend
             </TabsTrigger>
@@ -86,7 +86,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                       </div>
                     </div>
 
-                    <h4 className="font-semibold text-sm" data-testid={`text-skill-name-${skill.id}`}>
+                    <h4 className="font-semibold text-sm sm:text-base" data-testid={`text-skill-name-${skill.id}`}>
                       {skill.name}
                     </h4>
                   </div>

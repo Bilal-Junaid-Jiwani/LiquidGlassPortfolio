@@ -31,10 +31,10 @@ export function AboutSection({ timeline }: AboutSectionProps) {
 
           {/* Journey Content */}
           <div>
-            <h3 className="text-3xl font-bold mb-6" data-testid="heading-journey">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6" data-testid="heading-journey">
               My Journey
             </h3>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed" data-testid="text-journey-description">
+            <p className="text-base md:text-lg text-muted-foreground mb-8 leading-relaxed" data-testid="text-journey-description">
               I'm a passionate developer skilled in Django, Node.js, and n8n, with a strong
               interest in creating end-to-end web solutions. I also enjoy working on modern
               frontend designs to deliver smooth and engaging user experiences.

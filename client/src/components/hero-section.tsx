@@ -106,9 +106,9 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         {/* Main Glass Card */}
-        <div className="glass-card rounded-3xl p-12 md:p-16 mb-8 hover-elevate transition-all duration-500">
+        <div className="glass-card rounded-3xl p-8 sm:p-12 md:p-16 mb-8 hover-elevate transition-all duration-500">
           <h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight"
             data-testid="text-hero-name"
           >
             <span className="bg-gradient-to-r from-primary via-chart-3 to-primary bg-clip-text text-transparent">
@@ -117,7 +117,7 @@ export function HeroSection() {
           </h1>
 
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-foreground"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground"
             data-testid="text-hero-title"
           >
             Full-Stack Developer

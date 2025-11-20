@@ -69,9 +69,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         {/* Project Modal */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="glass-card rounded-3xl max-w-3xl border-0" data-testid="dialog-project-details">
+          <DialogContent className="glass-card rounded-3xl max-w-[90vw] sm:max-w-xl md:max-w-3xl border-0" data-testid="dialog-project-details">
             <DialogHeader>
-              <DialogTitle className="text-3xl font-black" data-testid="text-modal-project-title">
+              <DialogTitle className="text-2xl sm:text-3xl font-black" data-testid="text-modal-project-title">
                 {selectedProject?.title}
               </DialogTitle>
             </DialogHeader>
@@ -92,7 +92,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               </div>
 
               {/* Description */}
-              <p className="text-lg text-muted-foreground leading-relaxed" data-testid="text-modal-project-description">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed" data-testid="text-modal-project-description">
                 {selectedProject?.longDescription}
               </p>
 

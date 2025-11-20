@@ -119,7 +119,7 @@ export function PersonalAssistant() {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-28 right-8 z-50 w-80 h-[28rem] glass-card rounded-2xl shadow-2xl flex flex-col animate-in fade-in slide-in-from-bottom-4">
+        <div className="fixed bottom-28 right-4 left-4 sm:right-8 sm:left-auto z-50 w-full max-w-[calc(100vw-2rem)] sm:w-80 h-[70vh] sm:h-[28rem] glass-card rounded-2xl shadow-2xl flex flex-col animate-in fade-in slide-in-from-bottom-4">
           <div className="p-4 border-b border-border/50">
             <h3 className="font-bold text-lg">AI Assistant</h3>
             <p className="text-sm text-muted-foreground">Ask me anything about Bilal!</p>

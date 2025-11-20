@@ -55,8 +55,8 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Floating Glass Navigation */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
-        <div className="glass-card rounded-3xl px-6 py-4 flex items-center justify-between">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full sm:w-[95%] max-w-7xl">
+        <div className="glass-card rounded-3xl px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between">
           <a
             href="#home"
             className="text-2xl font-black bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent"
@@ -188,7 +188,7 @@ export default function Portfolio() {
       <footer className="relative py-12 border-t border-border/30">
         <div className="absolute inset-0 glass -z-10" />
         <div className="container mx-auto px-6 text-center">
-          <div className="flex justify-center gap-6 mb-6">
+          <div className="flex justify-center gap-4 sm:gap-6 mb-6">
             <a
               href="https://github.com/Bilal-Junaid-Jiwani/"
               target="_blank"

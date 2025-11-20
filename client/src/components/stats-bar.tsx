@@ -59,19 +59,19 @@ export function StatsBar({ stats }: StatsBarProps) {
     <section className="py-20 relative">
       <div className="absolute inset-0 glass -z-10" />
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {statItems.map((item) => (
             <div
               key={item.label}
-              className="text-center glass-card rounded-2xl p-6 hover-elevate transition-all duration-300"
+              className="text-center glass-card rounded-2xl p-4 sm:p-6 hover-elevate transition-all duration-300"
             >
               <h3
-                className="text-4xl md:text-5xl font-black bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent mb-2"
+                className="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent mb-2"
                 data-testid={item.testId}
               >
                 {item.value}+
               </h3>
-              <p className="text-sm md:text-base text-muted-foreground">{item.label}</p>
+              <p className="text-xs sm:text-sm md:text-base text-muted-foreground">{item.label}</p>
             </div>
           ))}
         </div>
