@@ -21,8 +21,12 @@
       "dest": "server/index.ts"
     },
     {
+      "src": "/(.*\\.[A-Za-z0-9]+$)",
+      "dest": "/dist/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/dist/index.html"
     }
   ]
 }
