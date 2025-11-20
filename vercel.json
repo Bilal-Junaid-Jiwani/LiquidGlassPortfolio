@@ -6,8 +6,6 @@
     "api/index.ts": {
       "runtime": "@vercel/node@3.0.19"
     }
-  },
-  "nodeVersion": "20.x",
   "routes": [
     {
       "src": "/api/(.*)",
