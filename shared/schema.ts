@@ -23,6 +23,7 @@ export interface TimelineItem {
   id: string;
   title: string;
   description: string;
+  year?: string;
 }
 
 export interface ContactMessage {
@@ -45,14 +46,24 @@ export type InsertContactMessage = z.infer<typeof contactMessageSchema>;
 // Portfolio data
 export const projects: Project[] = [
   {
-    id: "pitchcraft-ai",
-    title: "PitchCraft AI",
-    description: "AI-powered pitch generation and website code for startup ideas. (Hackathon Winner)",
-    longDescription: "A full-stack web application created during the Zaitoon Ashraf IT Park Hackathon. It transforms a startup idea into a complete business package with AI-powered pitch generation and professional website code.",
-    image: "/Screenshot 2025-11-17 152352.webp",
-    technologies: ["Full-Stack", "AI", "Hackathon"],
-    liveLink: "https://pitchcraft-abzf.vercel.app/",
-    repoLink: "https://github.com/Bilal-Junaid-Jiwani/pitchcraft",
+    id: "bleu-clothing",
+    title: "The Bleu Clothing Company",
+    description: "Premium digital presence for a textile brand.",
+    longDescription: "Designed and deployed a premium digital presence for a textile brand. Features include a dynamic product showcase, seamless contact integration, and a high-performance \"Industrial\" aesthetic tailored to brand identity.",
+    image: "/bleu-clothing-showcase.png",
+    technologies: ["React", "Tailwind CSS", "Industrial Design"],
+    liveLink: "https://www.thebleu.com.pk/",
+    repoLink: "#",
+  },
+  {
+    id: "attitude-pk",
+    title: "Attitude PK CRM",
+    description: "Full-Stack E-commerce & CRM Platform.",
+    longDescription: "Architected and developed a comprehensive E-commerce solution with a built-in CRM system using Next.js 15, TypeScript, and MongoDB. Features a high-performance storefront and a powerful Admin Dashboard. Key capabilities include Automated Abandoned Cart Recovery, detailed user analytics, Integrated Expense Tracking, real-time sales reporting, and a custom secure checkout flow.",
+    image: "/attitude-pk-showcase.jpg",
+    technologies: ["Next.js 15", "TypeScript", "MongoDB", "CRM"],
+    liveLink: "https://attitude-pk.vercel.app/",
+    repoLink: "#",
   },
   {
     id: "banking-system",
@@ -65,13 +76,14 @@ export const projects: Project[] = [
     repoLink: "https://github.com/Bilal-Junaid-Jiwani/Financial-Banking-System",
   },
   {
-    id: "hospital-management",
-    title: "Hospital Management System",
-    description: "A hospital management system developed using the Django framework.",
-    longDescription: "Developed a hospital management system based on the Django framework with features for patient records, appointments, and staff management.",
-    image: "/Screenshot 2025-11-17 154124.webp",
-    technologies: ["Python", "Django", "Healthcare"],
-    repoLink: "https://github.com/Bilal-Junaid-Jiwani/Hospital-Managment-System",
+    id: "pitchcraft-ai",
+    title: "PitchCraft AI",
+    description: "AI-powered pitch generation and website code for startup ideas. (Hackathon Winner)",
+    longDescription: "A full-stack web application created during the Zaitoon Ashraf IT Park Hackathon. It transforms a startup idea into a complete business package with AI-powered pitch generation and professional website code.",
+    image: "/Screenshot 2025-11-17 152352.webp",
+    technologies: ["Full-Stack", "AI", "Hackathon"],
+    liveLink: "https://pitchcraft-abzf.vercel.app/",
+    repoLink: "https://github.com/Bilal-Junaid-Jiwani/pitchcraft",
   },
   {
     id: "reddit-leads",
@@ -80,6 +92,15 @@ export const projects: Project[] = [
     longDescription: "A powerful automation tool that scrapes Reddit for potential leads using Python scripts within n8n workflows. The data is processed and served to a React frontend via an Excel file integration, allowing for efficient lead management.",
     image: "/Screenshot 2025-11-21 002239.webp",
     technologies: ["n8n", "Python", "React", "Automation"],
+  },
+  {
+    id: "hospital-management",
+    title: "Hospital Management System",
+    description: "A hospital management system developed using the Django framework.",
+    longDescription: "Developed a hospital management system based on the Django framework with features for patient records, appointments, and staff management.",
+    image: "/Screenshot 2025-11-17 154124.webp",
+    technologies: ["Python", "Django", "Healthcare"],
+    repoLink: "https://github.com/Bilal-Junaid-Jiwani/Hospital-Managment-System",
   },
 ];
 
@@ -91,7 +112,7 @@ export const skills: Skill[] = [
   { id: "bootstrap", name: "Bootstrap", percentage: 80, category: "frontend" },
   { id: "html", name: "HTML", percentage: 95, category: "frontend" },
   { id: "css", name: "CSS", percentage: 95, category: "frontend" },
-  
+
   // Backend
   { id: "django", name: "Django", percentage: 80, category: "backend" },
   { id: "nodejs", name: "Node.js", percentage: 70, category: "backend" },
@@ -99,7 +120,7 @@ export const skills: Skill[] = [
   { id: "mongodb", name: "MongoDB", percentage: 70, category: "backend" },
   // { id: "postgresql", name: "PostgreSQL", percentage: 50, category: "backend" },
   { id: "firebase", name: "Firebase", percentage: 70, category: "backend" },
-  
+
   // Tools
   { id: "n8n", name: "n8n", percentage: 90, category: "tools" },
   { id: "git", name: "Git & GitHub", percentage: 85, category: "tools" },
@@ -114,26 +135,31 @@ export const timeline: TimelineItem[] = [
     id: "saylani",
     title: "Saylani Institute (In Progress)",
     description: "Modern Web Application Development (Learning React)",
+    year: "2024",
   },
   {
     id: "piaic",
     title: "PIAIC (In Progress)",
     description: "Certified Agentic & Robotic AI Engineer (CAE)",
+    year: "2024",
   },
   {
     id: "hackathon",
     title: "Zaitoon Ashraf IT Park (Hackathon Winner)",
     description: "Developed \"Pitch Craft AI\" in a high-pressure environment.",
+    year: "2024",
   },
   {
     id: "wordpress",
     title: "WordPress Developer",
-    description: "2 Years Experience (Self-employed, 2023-2024)",
+    description: "2 Years Experience (Self-employed)",
+    year: "2023",
   },
   {
     id: "adsense",
     title: "Google AdSense & ADX Publisher",
-    description: "Managed and monetized web properties (2023-2024)",
+    description: "Managed and monetized web properties",
+    year: "2023",
   },
 ];
 

@@ -1,100 +1,91 @@
-import { useState } from "react";
 import { Skill } from "@shared/schema";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  SiJavascript, SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs,
+  SiPython, SiDjango, SiMongodb, SiPostgresql, SiGit, SiDocker,
+  SiHtml5, SiCss3, SiBootstrap, SiFirebase, SiWordpress, SiGooglesearchconsole
+} from "react-icons/si";
+import { cn } from "@/lib/utils";
 
 interface SkillsSectionProps {
   skills: Skill[];
 }
 
-export function SkillsSection({ skills }: SkillsSectionProps) {
-  const [activeCategory, setActiveCategory] = useState<"frontend" | "backend" | "tools">("frontend");
-
-  const categories = {
-    frontend: skills.filter((s) => s.category === "frontend"),
-    backend: skills.filter((s) => s.category === "backend"),
-    tools: skills.filter((s) => s.category === "tools"),
+// Icon mapping helper
+const getSkillIcon = (name: string) => {
+  const icons: Record<string, any> = {
+    "JavaScript": SiJavascript,
+    "React": SiReact,
+    "Next.js": SiNextdotjs,
+    "Tailwind CSS": SiTailwindcss,
+    "Node.js": SiNodedotjs,
+    "Python": SiPython,
+    "Django": SiDjango,
+    "MongoDB": SiMongodb,
+    "PostgreSQL": SiPostgresql,
+    "Git & GitHub": SiGit,
+    "Docker": SiDocker,
+    "HTML": SiHtml5,
+    "CSS": SiCss3,
+    "Bootstrap": SiBootstrap,
+    "Firebase": SiFirebase,
+    "WordPress": SiWordpress,
+    "SEO": SiGooglesearchconsole,
+    "n8n": () => <span className="font-black text-xs">n8n</span> // Custom text icon for n8n if icon missing
   };
+  return icons[name] || SiJavascript;
+};
+
+export function SkillsSection({ skills }: SkillsSectionProps) {
+  // Triple the skills list to ensure seamless marquee loop
+  const marqueeSkills = [...skills, ...skills, ...skills];
 
   return (
-    <section id="skills" className="py-24 px-6 relative">
-      <div className="absolute inset-0 glass -z-10" />
-      <div className="container mx-auto max-w-6xl">
-        <h2
-          className="text-4xl md:text-5xl font-black text-center mb-16"
-          data-testid="heading-skills"
-        >
-          Technical <span className="bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent">Skills</span>
+    <section id="skills" className="py-24 px-6 bg-white overflow-hidden relative">
+      <div className="container mx-auto max-w-7xl text-center mb-16">
+        <div className="inline-flex items-center justify-center p-2 bg-secondary/10 rounded-full mb-6">
+          <span className="text-secondary font-bold text-xs uppercase tracking-widest px-4">My Tech Stack</span>
+        </div>
+        <h2 className="text-4xl md:text-6xl font-black text-foreground mb-4">
+          Making apps with recent technologies.
         </h2>
+        <p className="font-cursive text-xl md:text-2xl text-muted-foreground/60 italic font-medium">
+          Never miss a task, deadline or idea.
+        </p>
+      </div>
 
-        <Tabs defaultValue="frontend" className="w-full" onValueChange={(v) => setActiveCategory(v as any)}>
-          <TabsList className="grid w-full max-w-full sm:max-w-md mx-auto grid-cols-3 mb-12 glass-card p-1 rounded-2xl">
-            <TabsTrigger value="frontend" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-frontend">
-              Frontend
-            </TabsTrigger>
-            <TabsTrigger value="backend" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-backend">
-              Backend
-            </TabsTrigger>
-            <TabsTrigger value="tools" className="rounded-xl data-[state=active]:glass-card" data-testid="tab-tools">
-              Tools
-            </TabsTrigger>
-          </TabsList>
-
-          {Object.entries(categories).map(([category, categorySkills]) => (
-            <TabsContent key={category} value={category} className="mt-0">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {categorySkills.map((skill) => (
-                  <div
-                    key={skill.id}
-                    className="glass-card rounded-2xl p-6 text-center hover-elevate active-elevate-2 transition-all duration-300 group cursor-pointer"
-                    data-testid={`card-skill-${skill.id}`}
-                  >
-                    {/* Circular Progress */}
-                    <div className="relative w-20 h-20 mx-auto mb-4">
-                      <svg className="w-full h-full transform -rotate-90">
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="36"
-                          stroke="currentColor"
-                          strokeWidth="6"
-                          fill="none"
-                          className="text-muted/20"
-                        />
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="36"
-                          stroke="url(#gradient)"
-                          strokeWidth="6"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeDasharray={`${2 * Math.PI * 36}`}
-                          strokeDashoffset={`${2 * Math.PI * 36 * (1 - skill.percentage / 100)}`}
-                          className="transition-all duration-1000 ease-out"
-                        />
-                        <defs>
-                          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(var(--primary))" />
-                            <stop offset="100%" stopColor="hsl(var(--chart-3))" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-lg font-bold" data-testid={`text-skill-percentage-${skill.id}`}>
-                          {skill.percentage}%
-                        </span>
-                      </div>
-                    </div>
-
-                    <h4 className="font-semibold text-sm sm:text-base" data-testid={`text-skill-name-${skill.id}`}>
-                      {skill.name}
-                    </h4>
-                  </div>
-                ))}
+      <div className="relative w-full overflow-hidden py-10 mask-gradient-x">
+        {/* Row 1 - Left to Right */}
+        <div className="flex gap-8 md:gap-16 w-max animate-marquee mb-12 hover:pause">
+          {marqueeSkills.slice(0, 15).map((skill, i) => {
+            const Icon = getSkillIcon(skill.name);
+            return (
+              <div key={`${skill.id}-1-${i}`} className="flex flex-col items-center justify-center gap-2 group cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-secondary/5 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-white transition-all duration-300">
+                  <Icon className="w-8 h-8 md:w-10 md:h-10 text-foreground group-hover:text-primary transition-colors" />
+                </div>
+                {/* <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{skill.name}</span> */}
               </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+            )
+          })}
+        </div>
+
+        {/* Row 2 - Right to Left */}
+        <div className="flex gap-8 md:gap-16 w-max animate-marquee-reverse hover:pause">
+          {marqueeSkills.slice(0, 15).reverse().map((skill, i) => {
+            const Icon = getSkillIcon(skill.name);
+            return (
+              <div key={`${skill.id}-2-${i}`} className="flex flex-col items-center justify-center gap-2 group cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-secondary/5 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-lg group-hover:bg-white transition-all duration-300">
+                  <Icon className="w-8 h-8 md:w-10 md:h-10 text-foreground group-hover:text-primary transition-colors" />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Side Gradients for Fade Effect */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
       </div>
     </section>
   );

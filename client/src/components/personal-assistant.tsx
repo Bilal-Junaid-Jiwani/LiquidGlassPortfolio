@@ -112,42 +112,75 @@ export function PersonalAssistant() {
       <div className="fixed bottom-8 right-8 z-50">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-full w-16 h-16 glass-card shadow-lg hover-elevate active-elevate-2 transition-all duration-300 flex items-center justify-center"
+          className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/25 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center"
         >
-          {isOpen ? <X size={32} /> : <Bot size={32} />}
+          {isOpen ? <X size={28} /> : <Bot size={28} />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-28 right-4 left-4 sm:right-8 sm:left-auto z-50 w-full max-w-[calc(100vw-2rem)] sm:w-80 h-[70vh] sm:h-[28rem] glass-card rounded-2xl shadow-2xl flex flex-col animate-in fade-in slide-in-from-bottom-4">
-          <div className="p-4 border-b border-border/50">
-            <h3 className="font-bold text-lg">AI Assistant</h3>
-            <p className="text-sm text-muted-foreground">Ask me anything about Bilal!</p>
+        <div className="fixed bottom-28 right-4 left-4 sm:right-8 sm:left-auto z-50 w-full max-w-[calc(100vw-2rem)] sm:w-80 h-[70vh] sm:h-[32rem] glass-card bg-black/80 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
+
+          {/* Header */}
+          <div className="p-4 border-b border-white/10 bg-white/5 rounded-t-3xl flex items-center gap-3">
+            <div className="p-2 rounded-full bg-primary/20">
+              <Bot className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-bold text-lg leading-none">AI Assistant</h3>
+              <p className="text-xs text-muted-foreground mt-1">Ask me anything about Bilal!</p>
+            </div>
           </div>
-          <div className="flex-1 p-4 overflow-y-auto">
+
+          <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-hide">
+            {messages.length === 0 && (
+              <div className="text-center text-muted-foreground text-sm mt-10 p-4">
+                <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                <p>Hi there! I'm here to help you get to know Muhammad Bilal better. Ask me about his skills, projects, or experience.</p>
+              </div>
+            )}
             {messages.map((msg, index) => (
-              <div key={index} className={`flex items-start gap-3 my-3 ${msg.type === 'user' ? 'justify-end' : ''}`}>
-                {msg.type === 'bot' && <Bot className="w-6 h-6 flex-shrink-0" />}
-                <div className={`rounded-xl p-3 max-w-[80%] ${msg.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                  <p className="text-sm">{msg.text}</p>
+              <div key={index} className={`flex items-start gap-3 ${msg.type === 'user' ? 'justify-end' : ''}`}>
+                {msg.type === 'bot' && (
+                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 border border-white/5">
+                    <Bot className="w-4 h-4" />
+                  </div>
+                )}
+                <div className={`rounded-2xl p-3 max-w-[80%] text-sm leading-relaxed shadow-sm ${msg.type === 'user'
+                    ? 'bg-primary text-primary-foreground rounded-br-sm'
+                    : 'bg-white/10 text-foreground border border-white/5 rounded-bl-sm'
+                  }`}>
+                  <p>{msg.text}</p>
                 </div>
-                {msg.type === 'user' && <User className="w-6 h-6 flex-shrink-0" />}
+                {msg.type === 'user' && (
+                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                    <User className="w-4 h-4 text-primary" />
+                  </div>
+                )}
               </div>
             ))}
             <div ref={chatEndRef} />
           </div>
-          <div className="p-4 border-t border-border/50 flex items-center gap-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Ask a question..."
-              className="flex-1 bg-transparent focus:outline-none"
-            />
-            <button onClick={handleSendMessage} className="p-2 rounded-full bg-primary text-primary-foreground">
-              <Send size={20} />
-            </button>
+
+          {/* Input Area */}
+          <div className="p-4 border-t border-white/10 bg-white/5 rounded-b-3xl">
+            <div className="flex items-center gap-2 bg-black/20 rounded-full p-1 border border-white/5 focus-within:border-primary/50 transition-colors">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                placeholder="Ask a question..."
+                className="flex-1 bg-transparent px-4 py-2 text-sm focus:outline-none placeholder:text-muted-foreground"
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={!inputValue.trim()}
+                className="p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-primary/20"
+              >
+                <Send size={18} />
+              </button>
+            </div>
           </div>
         </div>
       )}

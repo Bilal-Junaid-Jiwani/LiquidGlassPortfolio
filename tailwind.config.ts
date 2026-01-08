@@ -103,24 +103,40 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "spin-slow": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
+        shimmer: {
+          from: {
+            "background-position": "0 0",
+          },
+          to: {
+            "background-position": "-200% 0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "spin-slow": "spin-slow 10s linear infinite",
+        "gradient-x": "gradient-x 15s ease infinite",
+        shimmer: "shimmer 2s linear infinite",
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
-    plugin(function ({ addUtilities }) {
-      addUtilities({
-        ".glass-card": {
-          "background-color": "hsl(var(--card) / 0.6)",
-          "backdrop-filter": "blur(var(--backdrop-blur-lg))",
-          "border": "1px solid hsl(var(--card) / 0.1)",
-        },
-      });
-    }),
   ],
 } satisfies Config;
