@@ -20,14 +20,12 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: any) {
-    const serverOptions = {
-        middlewareMode: true,
-        hmr: { server },
-        allowedHosts: true,
-    };
-
     const vite = await createViteServer({
-        ...serverOptions,
+        server: {
+            middlewareMode: true,
+            hmr: { server },
+            allowedHosts: true,
+        },
         appType: "custom",
     });
 
@@ -45,10 +43,6 @@ export async function setupVite(app: Express, server: any) {
 
             // always read fresh template in dev
             let template = fs.readFileSync(clientTemplate, "utf-8");
-            template = template.replace(
-                `src="/src/main.tsx"`,
-                `src="/src/main.tsx?v=${Math.random()}"`,
-            );
             const page = await vite.transformIndexHtml(url, template);
             res.status(200).set({ "Content-Type": "text/html" }).end(page);
         } catch (e) {
