@@ -1,79 +1,66 @@
 import { TimelineItem } from "@shared/schema";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 
-interface AboutSectionProps {
+interface Props {
   timeline: TimelineItem[];
 }
 
-export function AboutSection({ timeline }: AboutSectionProps) {
+export function AboutSection({ timeline }: Props) {
   return (
-    <section id="about" className="py-32 px-6 bg-secondary/5 overflow-hidden">
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-          {/* Left Col - Image Composition */}
-          <div className="relative order-2 lg:order-1">
-            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] w-full max-w-md mx-auto lg:ml-0 bg-muted">
-              <img
-                src="/WhatsApp Image 2025-10-19 at 14.38.25_24722ce9.webp"
-                alt="Bilal Junaid Jiwani"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
-              />
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              <div className="absolute bottom-8 left-8 text-white">
-                <p className="font-bold uppercase tracking-widest text-sm mb-1 opacity-80">Based in</p>
-                <h3 className="text-3xl font-black">Karachi, PK.</h3>
-              </div>
-            </div>
-
-            {/* Decorative Elements */}
-            <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -z-10" />
-            <div className="absolute top-10 right-0 lg:-right-12 bg-white p-6 rounded-2xl shadow-xl z-20 max-w-[200px] hidden md:block animate-in fade-in slide-in-from-right-8 delay-300">
-              <p className="font-black text-4xl text-primary mb-1">100%</p>
-              <p className="text-sm font-bold text-muted-foreground leading-tight">Client Satisfaction Rate</p>
+    <section id="about" className="py-32 bg-background relative z-10 border-t border-border">
+      <div className="max-w-[1400px] mx-auto px-6">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          
+          {/* Left Column: Heading */}
+          <div className="lg:col-span-5">
+            <div className="sticky top-32">
+              <p className="text-[#F15A24] font-bold uppercase tracking-[0.2em] text-xs mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#F15A24] inline-block"></span>
+                The Journey
+              </p>
+              <h2 className="text-[clamp(3rem,6vw,6rem)] font-black tracking-tighter uppercase leading-[0.85] mb-8">
+                Intelligent <br/> Solutions <br/> That Scale.
+              </h2>
+              <div className="w-full max-w-[200px] h-2 bg-foreground mb-12"></div>
+              <p className="text-xl text-muted-foreground leading-relaxed font-semibold max-w-sm">
+                I am a Full-Stack Developer and Agentic AI Engineer passionate about building intelligent, scalable, and automation-driven applications. I specialize in turning complex ideas into functional products that don't just execute commands, but think, adapt, and grow.
+              </p>
             </div>
           </div>
 
-          {/* Right Col - Story & Content */}
-          <div className="order-1 lg:order-2 space-y-8">
-            <div>
-              <h4 className="text-primary font-bold tracking-widest uppercase text-sm mb-4">Who I Am</h4>
-              <h2 className="text-5xl md:text-6xl font-black text-foreground leading-[1.1] mb-6">
-                Designing the <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Future Web.</span>
-              </h2>
-            </div>
+          {/* Right Column: Timeline / Experience */}
+          <div className="lg:col-span-7">
+             <div className="flex flex-col">
+                <h3 className="text-3xl font-black uppercase tracking-widest mb-16 pb-8 border-b-4 border-foreground flex items-center justify-between">
+                  Experience & Education
+                  <ArrowDownRight className="w-10 h-10 text-muted-foreground" />
+                </h3>
+                
+                <div className="flex flex-col">
+                  {timeline.map((item, i) => (
+                    <div key={item.id} className="group flex flex-col md:flex-row md:items-start justify-between gap-6 md:gap-16 py-12 border-b border-border/50 hover:bg-muted/30 transition-colors px-4 -mx-4 rounded-xl">
+                      
+                      <div className="md:w-1/3 shrink-0">
+                         <span className="text-5xl md:text-7xl font-black tracking-tighter text-muted-foreground/30 group-hover:text-[#F15A24] transition-colors">
+                           {item.year}
+                         </span>
+                      </div>
+                      
+                      <div className="md:w-2/3 mt-2">
+                         <h4 className="text-2xl font-black text-foreground uppercase tracking-tight mb-4 group-hover:text-[#F15A24] transition-colors">
+                           {item.title}
+                         </h4>
+                         <p className="text-muted-foreground text-lg leading-relaxed font-medium">
+                           {item.description}
+                         </p>
+                      </div>
 
-            <p className="text-xl text-muted-foreground leading-relaxed font-medium">
-              I'm <span className="text-foreground font-bold">Bilal Jiwani</span>, a full-stack developer who bridges the gap between engineering and aesthetics. My journey started with a curiosity for how things work, evolving into a passion for building seamless digital ecosystems.
-            </p>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Specializing in <strong>Python, JavaScript, and modern frameworks</strong>, I don't just write code; I craft experiences. Whether it's a complex backend architecture or a pixel-perfect frontend, I bring precision and creativity to every project.
-            </p>
-
-            {/* Experience Cards */}
-            <div className="grid sm:grid-cols-2 gap-4 pt-4">
-              {timeline.slice(0, 2).map((item) => (
-                <div key={item.id} className="bg-white p-6 rounded-2xl shadow-sm border border-border/50 hover:border-primary/50 transition-colors group">
-                  <span className="text-sm font-black text-primary bg-primary/10 px-3 py-1 rounded-full mb-3 inline-block">
-                    {item.year}
-                  </span>
-                  <h4 className="font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className="pt-6">
-              <Button className="rounded-full px-8 py-6 text-lg font-bold bg-foreground text-background hover:bg-foreground/90 shadow-xl" asChild>
-                <a href="#contact">Start a Project <ArrowUpRight className="ml-2 w-5 h-5" /></a>
-              </Button>
-            </div>
+             </div>
           </div>
 
         </div>

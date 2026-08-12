@@ -46,14 +46,13 @@ export type InsertContactMessage = z.infer<typeof contactMessageSchema>;
 // Portfolio data
 export const projects: Project[] = [
   {
-    id: "bleu-clothing",
-    title: "The Bleu Clothing Company",
-    description: "Premium digital presence for a textile brand.",
-    longDescription: "Designed and deployed a premium digital presence for a textile brand. Features include a dynamic product showcase, seamless contact integration, and a high-performance \"Industrial\" aesthetic tailored to brand identity.",
-    image: "/bleu-clothing-showcase.png",
-    technologies: ["React", "Tailwind CSS", "Industrial Design"],
-    liveLink: "https://www.thebleu.com.pk/",
-    repoLink: "#",
+    id: "cogniclose",
+    title: "Cogniclose",
+    description: "A modern platform for cognitive closure and mental wellness.",
+    longDescription: "Developed a comprehensive platform for cognitive wellness.",
+    image: "/Cogniclose.png",
+    technologies: ["React", "Web Design", "Modern UI"],
+    liveLink: "https://cogniclose.com/",
   },
   {
     id: "attitude-pk",
@@ -64,6 +63,61 @@ export const projects: Project[] = [
     technologies: ["Next.js 15", "TypeScript", "MongoDB", "CRM"],
     liveLink: "https://attitude-pk.vercel.app/",
     repoLink: "#",
+  },
+  {
+    id: "bleu-clothing",
+    title: "The Bleu Clothing Company",
+    description: "Premium digital presence for a textile brand.",
+    longDescription: "Designed and deployed a premium digital presence for a textile brand. Features include a dynamic product showcase, seamless contact integration, and a high-performance \"Industrial\" aesthetic tailored to brand identity.",
+    image: "/bleu-clothing-showcase.png",
+    technologies: ["React", "Tailwind CSS", "Industrial Design"],
+    liveLink: "https://www.thebleu.com.pk/",
+    repoLink: "#",
+  },
+  {
+    id: "slingshot",
+    title: "Slingshot",
+    description: "Google Ai Seekho winner, won silver tier prize. A fast, modern web application.",
+    longDescription: "Developed a sleek, modern web application named Slingshot. Google Ai Seekho winner, won silver tier prize.",
+    image: "/slingshot.png",
+    technologies: ["React", "Web App", "Modern UI"],
+    liveLink: "https://bilals-slingshot-352425888965.us-central1.run.app/",
+  },
+  {
+    id: "arthur-construction",
+    title: "Arthur Construction",
+    description: "Professional digital presence for a construction and renovations company.",
+    longDescription: "Created a modern website for Arthur Construction And Renovations.",
+    image: "/arthur.png",
+    technologies: ["WordPress", "SEO", "Responsive Design"],
+    liveLink: "https://arthurconstructionandrenovations.ca/",
+  },
+  {
+    id: "beauty-incubator",
+    title: "Beauty Incubator",
+    description: "Recruitment platform tailored for the beauty industry.",
+    longDescription: "Built a specialized recruitment portal for the beauty sector.",
+    image: "/beauty.png",
+    technologies: ["Web Design", "CMS", "Branding"],
+    liveLink: "https://birecruit.com/",
+  },
+  {
+    id: "clear-plan",
+    title: "Clear Plan Cleaning",
+    description: "Service booking website for a professional cleaning business.",
+    longDescription: "Designed an accessible and clean website for a cleaning service.",
+    image: "/clearplan.png",
+    technologies: ["Frontend", "UI/UX", "Booking System"],
+    liveLink: "https://deeppink-stinkbug-468512.hostingersite.com/",
+  },
+  {
+    id: "brooke-zelcer",
+    title: "Brooke Zelcer",
+    description: "Personal portfolio and professional showcase.",
+    longDescription: "Developed a sleek personal portfolio on Squarespace.",
+    image: "/brooke.png",
+    technologies: ["Squarespace", "Portfolio", "Design"],
+    liveLink: "https://polygon-blenny-n6wm.squarespace.com/",
   },
   {
     id: "banking-system",
@@ -92,16 +146,7 @@ export const projects: Project[] = [
     longDescription: "A powerful automation tool that scrapes Reddit for potential leads using Python scripts within n8n workflows. The data is processed and served to a React frontend via an Excel file integration, allowing for efficient lead management.",
     image: "/Screenshot 2025-11-21 002239.webp",
     technologies: ["n8n", "Python", "React", "Automation"],
-  },
-  {
-    id: "hospital-management",
-    title: "Hospital Management System",
-    description: "A hospital management system developed using the Django framework.",
-    longDescription: "Developed a hospital management system based on the Django framework with features for patient records, appointments, and staff management.",
-    image: "/Screenshot 2025-11-17 154124.webp",
-    technologies: ["Python", "Django", "Healthcare"],
-    repoLink: "https://github.com/Bilal-Junaid-Jiwani/Hospital-Managment-System",
-  },
+  }
 ];
 
 export const skills: Skill[] = [
@@ -132,15 +177,45 @@ export const skills: Skill[] = [
 
 export const timeline: TimelineItem[] = [
   {
-    id: "saylani",
-    title: "Saylani Institute (In Progress)",
-    description: "Modern Web Application Development (Learning React)",
-    year: "2024",
+    id: "higlax-solution-agentic",
+    title: "Agentic AI Engineer & Full-Stack Developer @ Higlax Solutions",
+    description: "Building intelligent, scalable, and automation-driven applications. (June 2026 - Present)",
+    year: "2026",
+  },
+  {
+    id: "google-ai",
+    title: "Google AI Seekho Competition Winner",
+    description: "Won Google Silver Tier Prize for creating the Slingshot handtracking game.",
+    year: "2026",
+  },
+  {
+    id: "higlax-solution-mern",
+    title: "Full Stack Developer (MERN Stack) @ Higlax Solutions",
+    description: "Developed modern web applications. (May 2026 - June 2026)",
+    year: "2026",
+  },
+  {
+    id: "saylani-web",
+    title: "Modern Web & App Development @ S.M.I.T",
+    description: "Comprehensive training in modern web architecture. (March 2024 - April 2026)",
+    year: "2026",
+  },
+  {
+    id: "safina-logistic",
+    title: "Junior Software Developer @ SAFINA LOGISTIC",
+    description: "Software development and system maintenance. (Nov 2025 - Feb 2026)",
+    year: "2025",
   },
   {
     id: "piaic",
-    title: "PIAIC (In Progress)",
-    description: "Certified Agentic & Robotic AI Engineer (CAE)",
+    title: "Certified Agentic and Robotic AI Engineer (CAE) @ PIAIC",
+    description: "Advanced training in AI and Agentic Systems. (Aug 2025 - Aug 2026)",
+    year: "2025",
+  },
+  {
+    id: "saylani-python",
+    title: "Python Web Mastery @ S.M.I.T",
+    description: "Specialized training in Python web frameworks. (Oct 2024 - March 2025)",
     year: "2024",
   },
   {
@@ -150,16 +225,10 @@ export const timeline: TimelineItem[] = [
     year: "2024",
   },
   {
-    id: "wordpress",
-    title: "WordPress Developer",
-    description: "2 Years Experience (Self-employed)",
-    year: "2023",
-  },
-  {
-    id: "adsense",
-    title: "Google AdSense & ADX Publisher",
-    description: "Managed and monetized web properties",
-    year: "2023",
+    id: "displayjbz",
+    title: "WordPress Developer @ DisplayJBZ",
+    description: "Professional WordPress site building and Google AdSense Publisher Partner. (Jan 2020 - July 2023)",
+    year: "2020",
   },
 ];
 

@@ -1,122 +1,84 @@
-import { Button } from "@/components/ui/button";
-import { SiReact, SiNextdotjs, SiTailwindcss, SiTypescript } from "react-icons/si";
-import { FaGithub, FaLinkedin, FaInstagram, FaCode } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
 export function HeroSection() {
-  const socialLinks = [
-    { icon: <FaGithub className="w-5 h-5" />, href: "https://github.com/bilaljiwani", label: "GitHub" },
-    { icon: <FaLinkedin className="w-5 h-5" />, href: "https://linkedin.com/in/bilaljiwani", label: "LinkedIn" },
-    { icon: <FaInstagram className="w-5 h-5" />, href: "https://instagram.com", label: "Instagram" },
-  ];
-
   return (
-    <div className="min-h-screen flex items-center justify-center relative bg-background overflow-hidden pt-16">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-20 right-[10%] w-12 h-12 rounded-full border-4 border-primary/20 animate-bounce delay-700" />
-      <div className="absolute bottom-20 left-[10%] w-8 h-8 bg-primary/20 rotate-45 animate-spin-slow" />
-      <div className="absolute top-1/2 left-[5%] w-4 h-4 rounded-full bg-secondary/20" />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12 max-w-7xl mx-auto">
-
-          {/* Text Content */}
-          <div className="flex-1 text-left space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
-            <div>
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm mb-4 tracking-wider uppercase">
-                Frontend Developer
-              </span>
-              <h1 className="text-5xl md:text-7xl font-black text-foreground mb-4 leading-tight">
-                Hey, This is <br />
-                <span className="text-primary">Bilal</span> Jiwani
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-lg">
-                An interactive Web Developer building pixel-perfect digital experiences.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                className="rounded-full px-8 py-6 text-lg bg-secondary hover:bg-secondary/90 text-white shadow-xl hover:shadow-2xl transition-all hover:scale-105"
-              >
-                Let's Talk
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full px-8 py-6 text-lg border-2 border-secondary/20 text-secondary hover:bg-secondary/5 font-bold"
-              >
-                View Projects
-              </Button>
-            </div>
-
-            <div className="flex gap-4 pt-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full border border-border hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300 text-muted-foreground"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Profile Image & Floating Icons */}
-          <div className="flex-1 relative flex justify-center animate-in fade-in slide-in-from-right-8 duration-700 delay-200">
-            <div className="relative w-[350px] h-[350px] md:w-[500px] md:h-[500px]">
-              {/* Main Circle Background */}
-              <div className="absolute inset-0 bg-secondary/5 rounded-full" />
-              <div className="absolute inset-4 bg-white rounded-full shadow-2xl overflow-hidden border-4 border-white">
-                {/* Replaced placeholder with actual image path or placeholder if not available. Assuming user hasn't provided new one yet, keeping same src */}
-                <img
-                  src="/WhatsApp Image 2025-10-19 at 14.38.25_24722ce9.webp"
-                  alt="Bilal Jiwani"
-                  className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700"
-                />
-              </div>
-
-              {/* Floating Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-                className="absolute bottom-10 -left-4 bg-primary text-white p-4 rounded-xl shadow-lg flex items-center gap-3 z-20"
-              >
-                <div className="text-3xl font-bold">3+</div>
-                <div className="text-xs leading-tight font-medium opacity-90">
-                  Years of<br />Experience
-                </div>
-              </motion.div>
-
-              {/* Orbiting Icons */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 rounded-full z-10 pointer-events-none"
-              >
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-xl">
-                  <SiReact className="w-8 h-8 text-[#61DAFB]" />
-                </div>
-                <div className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white p-3 rounded-full shadow-xl">
-                  <SiNextdotjs className="w-8 h-8 text-black" />
-                </div>
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-xl">
-                  <SiTailwindcss className="w-8 h-8 text-[#06B6D4]" />
-                </div>
-                <div className="absolute top-1/2 -left-6 -translate-y-1/2 bg-white p-3 rounded-full shadow-xl">
-                  <SiTypescript className="w-8 h-8 text-[#3178C6]" />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-        </div>
+    <section id="home" className="relative w-full h-[100vh] min-h-[600px] md:min-h-[850px] flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#f05c31' }}>
+      
+      {/* Background Crosshair Grid (SVG Pattern) */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15] mix-blend-overlay">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="crosshairs" width="250" height="250" patternUnits="userSpaceOnUse">
+              <line x1="125" y1="120" x2="125" y2="130" stroke="white" strokeWidth="1" />
+              <line x1="120" y1="125" x2="130" y2="125" stroke="white" strokeWidth="1" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#crosshairs)" />
+        </svg>
       </div>
-    </div>
+
+      {/* Massive Background Text (Faded) */}
+      <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-full text-center z-0 pointer-events-none">
+        <h1 className="text-[clamp(10rem,35vw,40rem)] font-sans font-black text-[#dc4518] tracking-tighter leading-none select-none">
+          BILAL
+        </h1>
+      </div>
+
+      <div className="max-w-[1600px] w-full mx-auto px-8 lg:px-16 relative z-10 flex h-full pt-24">
+        
+        {/* Left Content (Intro Text) */}
+        <div className="absolute left-8 lg:left-16 top-[40%] max-w-[280px] z-20 hidden md:block">
+          <p className="text-white text-[13px] font-semibold tracking-wide uppercase leading-[1.8]">
+            BUILDING INTELLIGENT, SCALABLE, AND AUTOMATION-DRIVEN APPLICATIONS
+          </p>
+        </div>
+
+        {/* Center Portrait Image */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-[50%] z-10 w-[150%] md:w-[120%] max-w-[1000px] h-[75vh] md:h-[90vh] flex items-end justify-center pointer-events-none">
+          <img 
+            src="/bilalnew1.png" 
+            alt="Muhammad Bilal" 
+            className="w-full h-full object-contain object-bottom drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+
+        {/* Bottom Left Foreground Text */}
+        <div className="absolute bottom-6 md:bottom-12 left-4 md:left-8 lg:left-16 z-20 pointer-events-none">
+          <p className="text-white font-bold text-lg md:text-xl mb-[-0.5rem] md:mb-[-1rem]">©2026</p>
+          <h2 className="text-[clamp(4rem,18vw,14rem)] font-sans font-black text-white leading-[0.8] tracking-tighter">
+            BILAL
+          </h2>
+        </div>
+
+        {/* Right Floating Card 1 (Polaroid Style) */}
+        <div className="hidden lg:flex absolute right-16 top-[35%] bg-white p-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex-col z-20 animate-float-slow">
+          <div className="w-56 h-56 bg-zinc-100 mb-3 flex items-center justify-center overflow-hidden border border-zinc-200 relative">
+             <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-rose-400 opacity-90 mix-blend-multiply"></div>
+             <div className="w-24 h-24 bg-white/40 backdrop-blur-md rounded shadow-lg border border-white/50 z-10"></div>
+          </div>
+          <div className="flex items-center justify-between text-[11px] font-bold text-black uppercase px-2 pb-1">
+             <span className="flex items-center gap-1"><Sparkles className="w-3 h-3 text-[#f05c31]"/> HIGLAX</span>
+             <span className="text-zinc-500">/Agentic AI</span>
+          </div>
+        </div>
+
+        {/* Right Floating Card 2 (Let's Talk) */}
+        <div 
+          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          className="absolute right-4 md:right-8 lg:right-16 bottom-6 md:bottom-16 bg-[#0A0A0A] p-3 md:p-4 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)] flex items-center gap-3 md:gap-5 z-20 border border-white/5 group hover:border-white/20 transition-all hover:-translate-y-1 cursor-pointer scale-90 md:scale-100 origin-bottom-right"
+        >
+          <img src="/bilalnew1.png" alt="Avatar" className="w-10 h-10 md:w-14 md:h-14 rounded-lg object-cover object-top bg-zinc-800" />
+          <div className="pr-6">
+             <p className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1 flex items-center justify-between w-full">Let's Talk <Sparkles className="w-3 h-3 text-white/30"/></p>
+             <p className="text-white font-bold text-sm">Muhammad Bilal</p>
+             <p className="text-white/40 text-[11px] font-semibold">Agentic AI Engineer</p>
+          </div>
+          <div className="w-10 h-10 bg-white text-black rounded flex items-center justify-center group-hover:bg-[#f05c31] group-hover:text-white transition-colors">
+            <ArrowUpRight className="w-5 h-5" />
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 }
