@@ -2,13 +2,8 @@
   "version": 2,
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-    "functions": {
-      "api/index.ts": {
-        "runtime": "@vercel/node@3.0.19"
-      }
-    },
-    "outputDirectory": "dist/public",
-      "routes": [
+  "outputDirectory": "dist/public",
+  "routes": [
         {
           "src": "/api/(.*)",
           "dest": "api/index.ts"
